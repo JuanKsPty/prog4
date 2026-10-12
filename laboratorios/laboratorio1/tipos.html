@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipos de Pokémon</title>
+</head>
+<body>
+
+    <header class="card">
+        <h1>Tipos de Pokémon</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="tipos.html">Tipos</a></li>
+                <li><a href="multimedia.html">Multimedia</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="card">
+            <p>Cada Pokémon tiene uno o dos <em>tipos</em>, que definen sus fortalezas y debilidades en batalla. Existen <mark>18 tipos</mark> oficiales.</p>
+        </div>
+
+        <div class="card">
+            <p>Lista de tipos:</p>
+            <ul id="types-list"></ul>
+        </div>
+
+        <div class="card table-container">
+            <p>Fortalezas y debilidades de algunos tipos:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Fuerte contra</th>
+                        <th>Débil contra</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Fuego</td><td>Planta, Hielo, Bicho</td><td>Agua, Roca, Tierra</td></tr>
+                    <tr><td>Agua</td><td>Fuego, Roca, Tierra</td><td>Planta, Eléctrico</td></tr>
+                    <tr><td>Planta</td><td>Agua, Roca, Tierra</td><td>Fuego, Hielo, Volador</td></tr>
+                    <tr><td>Eléctrico</td><td>Agua, Volador</td><td>Tierra</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <p>Ejemplo de Pokémon iniciales por tipo:</p>
+            <div id="type-examples"></div>
+        </div>
+    </main>
+
+    <footer>
+        <p><small>Laboratorio N&deg;1 - Desarrollo Web.</small></p>
+    </footer>
+
+    <script>
+        const urlPokeApi = "https://pokeapi.co/api/v2/pokemon/"
+        const typesListElement = document.getElementById('types-list')
+        const typeExamplesContainer = document.getElementById('type-examples')
+
+        fetch("https://pokeapi.co/api/v2/type?limit=18")
+            .then(response => response.json())
+            .then(data => {
+                data.results.forEach(type => {
+                    const li = document.createElement('li')
+                    li.textContent = type.name
+                    typesListElement.appendChild(li)
+                })
+            })
+            .catch(error => console.error('Error fetching types:', error))
+
+        const examplePokemons = [
+            { id: 4, type: 'Fuego' },
+            { id: 7, type: 'Agua' },
+            { id: 1, type: 'Planta' },
+        ]
+
+        Promise.all(examplePokemons.map(p => fetch(urlPokeApi + p.id).then(r => r.json())))
+            .then(pokemons => {
+                pokemons.forEach((pokemon, index) => {
+                    const figure = document.createElement('figure')
+                    figure.innerHTML = `
+                        <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+                        <figcaption>${examplePokemons[index].type} - ${pokemon.name}</figcaption>
+                    `
+                    typeExamplesContainer.appendChild(figure)
+                })
+            })
+            .catch(error => console.error('Error fetching Pokémon data:', error))
+    </script>
+</body>
+</html>

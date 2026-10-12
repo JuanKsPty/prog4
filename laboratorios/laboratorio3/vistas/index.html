@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex Web</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="container pokedex-page">
+
+    <nav aria-label="Navegación principal">
+        <a class="nav-brand" href="../index.html" aria-label="Pokémon Lab, inicio"><img src="../img/pokemon-logo.png" alt="Pokémon"></a>
+        <a href="../index.html">Inicio</a>
+        <a href="index.html">Pokédex</a>
+        <a href="tipos.html">Tipos</a>
+        <a href="multimedia.html">Multimedia</a>
+        <a href="formulario.html">Entrenador</a>
+    </nav>
+
+    <header class="page-title">
+        <p>REGIÓN KANTO · 001—020</p>
+        <h1>Pokédex Pokémon</h1>
+        <span>Una primera expedición por las especies que iniciaron la aventura.</span>
+    </header>
+
+    <main>
+        <section>
+            <div class="pokedex-toolbar">
+                <div>
+                    <p>Explora los Pokémon iniciales de la Pokédex.</p>
+                    <span id="pokedex-status">Mostrando los primeros 20 Pokémon.</span>
+                </div>
+                <label for="pokemon-search">Buscar Pokémon
+                    <input type="search" id="pokemon-search" placeholder="Ej. pikachu">
+                </label>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Imagen</th>
+                    </tr>
+                </thead>
+                <tbody id="pokemon-table-body">
+                </tbody>
+            </table>
+        </section>
+
+        <aside>
+            <p><small>¿Sabías que existen más de <strong>1000</strong> especies de Pokémon? Escucha su grito en <a href="multimedia.html">Multimedia</a>.</small></p>
+        </aside>
+    </main>
+
+    <footer><p>Pokémon Lab · Pokédex</p></footer>
+
+    <script src="../js/pokedex.js"></script>
+</body>
+</html>

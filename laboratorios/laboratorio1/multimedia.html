@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multimedia Pokémon</title>
+</head>
+<body>
+
+    <header class="card">
+        <h1>Multimedia Pokémon</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="tipos.html">Tipos</a></li>
+                <li><a href="multimedia.html">Multimedia</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="card">
+            <p>El mundo Pokémon se disfruta también con <strong>sonido</strong> y <em>video</em>. Sigue estos pasos:</p>
+            <ol>
+                <li>Elige un Pokémon.</li>
+                <li>Presiona su nombre.</li>
+                <li>Escucha su grito.</li>
+            </ol>
+            <div id="cry-buttons"></div>
+            <audio id="cry-player" controls></audio>
+        </div>
+
+        <div class="card">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/Rsv2VkoIpk0?si=gmdnVcygYiylrBPT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+
+    </main>
+
+    <footer>
+        <p><small>Laboratorio N&deg;1 - Desarrollo Web.</small></p>
+    </footer>
+
+    <script>
+        const urlPokeApi = "https://pokeapi.co/api/v2/pokemon/"
+        const cryButtonsContainer = document.getElementById('cry-buttons')
+        const cryPlayer = document.getElementById('cry-player')
+        const cryPokemons = [1, 4, 7, 25]
+
+        Promise.all(cryPokemons.map(id => fetch(urlPokeApi + id).then(r => r.json())))
+            .then(pokemons => {
+                pokemons.forEach(pokemon => {
+                    const button = document.createElement('button')
+                    button.textContent = pokemon.name
+                    button.addEventListener('click', () => {
+                        cryPlayer.src = pokemon.cries.latest
+                        cryPlayer.play()
+                    })
+                    cryButtonsContainer.appendChild(button)
+                })
+            })
+            .catch(error => console.error('Error fetching Pokémon data:', error))
+    </script>
+</body>
+</html>

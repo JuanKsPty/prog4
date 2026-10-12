@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multimedia Pokémon</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="container multimedia-page">
+
+    <nav aria-label="Navegación principal">
+        <a class="nav-brand" href="../index.html" aria-label="Pokémon Lab, inicio"><img src="../img/pokemon-logo.png" alt="Pokémon"></a>
+        <a href="../index.html">Inicio</a>
+        <a href="index.html">Pokédex</a>
+        <a href="tipos.html">Tipos</a>
+        <a href="multimedia.html">Multimedia</a>
+        <a href="formulario.html">Entrenador</a>
+    </nav>
+
+    <header class="page-title">
+        <p>CENTRO DE SONIDO</p>
+        <h1>Multimedia Pokémon</h1>
+        <span>Escucha los gritos de tus compañeros y revive la aventura.</span>
+    </header>
+
+    <main>
+        <section class="sound-panel">
+            <p>Elige un Pokémon para escuchar su grito.</p>
+            <ol>
+                <li>Selecciona un botón.</li>
+                <li>Presiona reproducir.</li>
+            </ol>
+            <div id="cry-buttons"></div>
+            <audio id="cry-player" controls></audio>
+        </section>
+
+        <section class="video-panel">
+            <p>Una mirada al mundo Pokémon</p>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/Rsv2VkoIpk0?si=gmdnVcygYiylrBPT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </section>
+    </main>
+
+    <footer><p>Pokémon Lab · Multimedia</p></footer>
+
+    <script>
+        const urlPokeApi = "https://pokeapi.co/api/v2/pokemon/"
+        const cryButtonsContainer = document.getElementById('cry-buttons')
+        const cryPlayer = document.getElementById('cry-player')
+        const cryPokemons = [1, 4, 7, 25]
+
+        Promise.all(cryPokemons.map(id => fetch(urlPokeApi + id).then(r => r.json())))
+            .then(pokemons => {
+                pokemons.forEach(pokemon => {
+                    const button = document.createElement('button')
+                    button.textContent = pokemon.name
+                    button.addEventListener('click', () => {
+                        cryPlayer.src = pokemon.cries.latest
+                        cryPlayer.play()
+                    })
+                    cryButtonsContainer.appendChild(button)
+                })
+            })
+            .catch(error => console.error('Error fetching Pokémon data:', error))
+    </script>
+</body>
+</html>

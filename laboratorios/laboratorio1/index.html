@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex Web</title>
+</head>
+<body>
+
+    <header class="card">
+        <h1>Pokédex Web</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="tipos.html">Tipos</a></li>
+                <li><a href="multimedia.html">Multimedia</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="card">
+            <p>Bienvenido a la <strong>Pokédex Web</strong>, un sitio sobre los <em>Pokémon</em>.</p>
+            <p>Hora actual: <time id="current-time"></time></p>
+        </div>
+
+        <div class="card table-container">
+            <p>Lista de los primeros 20 Pokémon:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Imagen</th>
+                    </tr>
+                </thead>
+                <tbody id="pokemon-table-body">
+                </tbody>
+            </table>
+        </div>
+
+        <aside class="card">
+            <p><small>¿Sabías que existen más de <strong>1000</strong> especies de Pokémon? Escucha su grito en <a href="multimedia.html">Multimedia</a>.</small></p>
+        </aside>
+    </main>
+
+    <footer>
+        <p><small>Laboratorio N&deg;1 - Desarrollo Web</small></p>
+    </footer>
+
+    <script>
+        const currentTimeElement = document.getElementById('current-time')
+        const urlPokeApi = "https://pokeapi.co/api/v2/pokemon/"
+        const initialPokemonsContainer = document.getElementById('initial-pokemons')
+        const initialPokemons = [1, 4, 7]
+        const pokemonData = initialPokemons.map(id => fetch(urlPokeApi + id).then(response => response.json()))
+        const first20PokemonsData = fetch(urlPokeApi + "?limit=20").then(response => response.json()).then(data => data.results)
+        const pokemonTableBody = document.getElementById('pokemon-table-body')
+
+        Promise.all([first20PokemonsData])
+            .then(([first20Pokemons]) => {
+                first20Pokemons.forEach(pokemon => {
+                    const row = document.createElement('tr')
+                    row.innerHTML = `
+                        <td>${pokemon.name}</td>
+                        <td><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.url.split('/')[6]}.png" alt="${pokemon.name}"></td>
+                    `
+                    pokemonTableBody.appendChild(row)
+                })
+            })
+            .catch(error => console.error('Error fetching Pokémon data:', error))
+
+        function updateCurrentTime() {
+            const now = new Date()
+            currentTimeElement.textContent = now.toLocaleTimeString()
+        }
+
+        updateCurrentTime()
+        setInterval(updateCurrentTime, 1000)
+    </script>
+</body>
+</html>

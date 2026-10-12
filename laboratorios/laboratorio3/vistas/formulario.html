@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Personal</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="container trainer-page">
+
+    <nav aria-label="Navegación principal">
+        <a class="nav-brand" href="../index.html" aria-label="Pokémon Lab, inicio"><img src="../img/pokemon-logo.png" alt="Pokémon"></a>
+        <a href="../index.html">Inicio</a>
+        <a href="index.html">Pokédex</a>
+        <a href="tipos.html">Tipos</a>
+        <a href="multimedia.html">Multimedia</a>
+        <a href="formulario.html">Entrenador</a>
+    </nav>
+
+    <header class="page-title">
+        <p>REGISTRO DE ENTRENADOR</p>
+        <h1>Centro del entrenador</h1>
+        <span>Prepara tu perfil para comenzar una nueva aventura.</span>
+    </header>
+
+    <main>
+    <section class="trainer-form">
+        <p>Completa tus datos para registrar tu perfil.</p>
+        <form action="/formulario" method="post">
+        <fieldset>
+            <legend>Datos personales</legend>
+
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" maxlength="15"><br><br>
+
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" name="apellido" maxlength="15"><br><br>
+
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password"><br><br>
+
+            <label for="correo">Correo:</label>
+            <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com"><br><br>
+
+            <label for="edad">Edad:</label>
+            <input type="number" id="edad" name="edad" min="1" max="105"><br><br>
+
+            <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento"><br><br>
+
+            <label>Género:</label><br>
+            <input type="radio" id="masculino" name="genero" value="masculino">
+            <label for="masculino">Masculino</label><br>
+            <input type="radio" id="femenino" name="genero" value="femenino">
+            <label for="femenino">Femenino</label><br>
+            <input type="radio" id="otro" name="genero" value="otro">
+            <label for="otro">Otro</label><br><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Intereses</legend>
+
+            <input type="checkbox" id="musica" name="intereses" value="musica">
+            <label for="musica">Música</label><br>
+
+            <input type="checkbox" id="deporte" name="intereses" value="deporte">
+            <label for="deporte">Deporte</label><br>
+
+            <input type="checkbox" id="cine" name="intereses" value="cine">
+            <label for="cine">Cine</label><br>
+
+            <input type="checkbox" id="cocina" name="intereses" value="cocina">
+            <label for="cocina">Cocina</label><br>
+
+            <input type="checkbox" id="fotografia" name="intereses" value="fotografia">
+            <label for="fotografia">Fotografía</label><br><br>
+        </fieldset>
+
+        <label for="comentarios">Comentarios</label>
+        <textarea id="comentarios" name="comentarios" rows="7" cols="40"></textarea><br><br>
+
+        <label for="provincia">Provincia</label>
+        <select id="provincia" name="provincia">
+            <option value="">Seleccione una provincia</option>
+            <option value="bocas-del-toro">Bocas del Toro</option>
+            <option value="cocle">Coclé</option>
+            <option value="colon">Colón</option>
+            <option value="chiriqui">Chiriquí</option>
+            <option value="darien">Darién</option>
+            <option value="herrera">Herrera</option>
+            <option value="los-santos">Los Santos</option>
+            <option value="panama">Panamá</option>
+            <option value="veraguas">Veraguas</option>
+        </select><br><br>
+
+        <label for="archivo">Adjuntar archivo</label>
+        <input type="file" id="archivo" name="archivo"><br><br>
+
+        <button type="reset">Limpiar</button>
+        <button type="submit">Enviar</button>
+        </form>
+    </section>
+    <aside>
+        <h2>Tu próxima aventura</h2>
+        <p>Un buen entrenador conoce sus fortalezas, cuida a su equipo y nunca deja de explorar.</p>
+    </aside>
+    </main>
+</body>
+</html>
