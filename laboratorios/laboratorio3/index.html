@@ -3,52 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokémon | Laboratorio 3</title>
+    <title>Pokémon Lab | Laboratorio 3</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    <nav aria-label="Navegación principal">
+<body class="home-page">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <nav class="site-nav" aria-label="Navegación principal">
         <a class="nav-brand" href="index.html" aria-label="Pokémon Lab, inicio"><img src="img/pokemon-logo.png" alt="Pokémon"></a>
-        <a href="index.html">Inicio</a>
-        <a href="vistas/index.html">Pokédex</a>
-        <a href="vistas/tipos.html">Tipos</a>
-        <a href="vistas/multimedia.html">Multimedia</a>
-        <a href="vistas/formulario.html">Entrenador</a>
+        <div class="nav-links">
+            <a href="index.html" aria-current="page">Inicio</a>
+            <a href="vistas/index.html">Pokédex</a>
+            <a href="vistas/tipos.html">Tipos</a>
+            <a href="vistas/multimedia.html">Multimedia</a>
+            <a href="vistas/formulario.html">Entrenador</a>
+        </div>
     </nav>
-       <header>
-        <img class="pokemon-logo" src="img/pokemon-logo.png" alt="Pokémon">
-        <h1>Pokémon Lab</h1>
-        <p>Un centro de entrenamiento para explorar los laboratorios web.</p>
+
+    <header class="hero">
+        <div class="hero-copy">
+            <img class="hero-logo" src="img/pokemon-logo.png" alt="Pokémon">
+            <h1>Pokémon Lab</h1>
+            <p class="hero-lead">Un centro de entrenamiento para explorar los laboratorios web.</p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="vistas/index.html">Abrir Pokédex</a>
+                <a class="btn btn-ghost" href="vistas/formulario.html">Crear perfil</a>
+            </div>
+            <dl class="hero-stats">
+                <div><dt>Pokémon en la Pokédex</dt><dd>20</dd></div>
+                <div><dt>Tipos oficiales</dt><dd>18</dd></div>
+                <div><dt>Gritos para escuchar</dt><dd>4</dd></div>
+            </dl>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" alt="" width="475" height="475">
+        </div>
     </header>
 
-    <main>
-        <section>
-            <h2>¡Hazte con todos los conocimientos!</h2>
-            <p>Este sitio reúne una Pokédex, tipos, multimedia y un formulario de entrenador con una temática inspirada en el mundo Pokémon.</p>
-            <p><strong>Tu misión:</strong> explorar cada ruta y completar tu Pokédex académica.</p>
+    <main id="contenido">
+        <section class="mission">
+            <div>
+                <p class="eyebrow">Bienvenida</p>
+                <h2>¡Hazte con todos los conocimientos!</h2>
+            </div>
+            <div class="mission-copy">
+                <p>Este sitio reúne una Pokédex, tipos, multimedia y un formulario de entrenador con una temática inspirada en el mundo Pokémon.</p>
+                <p class="mission-callout"><strong>Tu misión:</strong> explorar cada ruta y completar tu Pokédex académica.</p>
+            </div>
         </section>
 
-        <section>
-            <h2>Rutas de entrenamiento</h2>
-            <article>
-                <h3>Pokédex</h3>
-                <p>Consulta los primeros Pokémon y sus imágenes.</p>
-                <a href="vistas/index.html">Abrir Pokédex →</a>
-            </article>
-            <article>
-                <h3>Tipos y multimedia</h3>
-                <p>Descubre fortalezas, debilidades, sonidos y videos.</p>
-                <a href="vistas/tipos.html">Explorar tipos →</a>
-            </article>
-            <article>
-                <h3>Centro del entrenador</h3>
-                <p>Registra tus datos y personaliza tu perfil de entrenador.</p>
-                <a href="vistas/formulario.html">Crear perfil →</a>
-            </article>
+        <section class="routes" aria-labelledby="rutas-titulo">
+            <div class="section-head">
+                <p class="eyebrow">Explora</p>
+                <h2 id="rutas-titulo">Rutas de entrenamiento</h2>
+            </div>
+            <div class="route-grid">
+                <article class="route-card">
+                    <div class="route-top">
+                        <span class="route-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"/></svg>
+                        </span>
+                        <span class="route-number">01</span>
+                    </div>
+                    <h3>Pokédex</h3>
+                    <p>Consulta los primeros Pokémon y sus imágenes.</p>
+                    <a class="route-link" href="vistas/index.html">Abrir Pokédex <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="route-card">
+                    <div class="route-top">
+                        <span class="route-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        </span>
+                        <span class="route-number">02</span>
+                    </div>
+                    <h3>Tipos y multimedia</h3>
+                    <p>Descubre fortalezas, debilidades, sonidos y videos.</p>
+                    <a class="route-link" href="vistas/tipos.html">Explorar tipos <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="route-card">
+                    <div class="route-top">
+                        <span class="route-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+                        </span>
+                        <span class="route-number">03</span>
+                    </div>
+                    <h3>Centro del entrenador</h3>
+                    <p>Registra tus datos y personaliza tu perfil de entrenador.</p>
+                    <a class="route-link" href="vistas/formulario.html">Crear perfil <span aria-hidden="true">→</span></a>
+                </article>
+            </div>
         </section>
     </main>
 
-    <footer>
+    <footer class="site-footer">
+        <img src="img/pokemon-logo.png" alt="Pokémon">
         <p>Programación 4 · Laboratorio 3 · ¡Atrápalos todos!</p>
     </footer>
 </body>

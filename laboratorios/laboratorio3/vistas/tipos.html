@@ -3,67 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tipos de Pokémon</title>
+    <title>Tipos | Pokémon Lab</title>
     <link rel="stylesheet" href="../css/styles.css">
 </head>
-<body class="container types-page">
+<body class="types-page">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-    <nav aria-label="Navegación principal">
+    <nav class="site-nav" aria-label="Navegación principal">
         <a class="nav-brand" href="../index.html" aria-label="Pokémon Lab, inicio"><img src="../img/pokemon-logo.png" alt="Pokémon"></a>
-        <a href="../index.html">Inicio</a>
-        <a href="index.html">Pokédex</a>
-        <a href="tipos.html">Tipos</a>
-        <a href="multimedia.html">Multimedia</a>
-        <a href="formulario.html">Entrenador</a>
+        <div class="nav-links">
+            <a href="../index.html">Inicio</a>
+            <a href="index.html">Pokédex</a>
+            <a href="tipos.html" aria-current="page">Tipos</a>
+            <a href="multimedia.html">Multimedia</a>
+            <a href="formulario.html">Entrenador</a>
+        </div>
     </nav>
-    <header class="page-title">
-        <p>GUÍA DE BATALLA</p>
+
+    <header class="page-header">
+        <p class="eyebrow">Guía de batalla</p>
         <h1>Tipos Pokémon</h1>
-        <span>Conoce las afinidades que cambian el rumbo de cada combate.</span>
+        <p class="lead">Conoce las afinidades que cambian el rumbo de cada combate.</p>
     </header>
 
-    <main>
-        <section class="types-intro">
-            <div>
+    <main id="contenido" class="types-layout">
+        <section class="panel types-intro">
+            <div class="types-intro-copy">
                 <p>Cada Pokémon tiene uno o dos <em>tipos</em>, que definen sus fortalezas y debilidades en batalla. Existen <mark>18 tipos</mark> oficiales.</p>
             </div>
             <div>
-                <p>Tipos disponibles</p>
+                <p class="eyebrow">Tipos disponibles</p>
                 <ul id="types-list"></ul>
             </div>
         </section>
 
-        <section class="type-chart">
-            <div>
-                <p>Fortalezas y debilidades</p>
-                <table>
-                <thead>
-                    <tr>
-                        <th>Tipo</th>
-                        <th>Fuerte contra</th>
-                        <th>Débil contra</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>Fuego</td><td>Planta, Hielo, Bicho</td><td>Agua, Roca, Tierra</td></tr>
-                    <tr><td>Agua</td><td>Fuego, Roca, Tierra</td><td>Planta, Eléctrico</td></tr>
-                    <tr><td>Planta</td><td>Agua, Roca, Tierra</td><td>Fuego, Hielo, Volador</td></tr>
-                    <tr><td>Eléctrico</td><td>Agua, Volador</td><td>Tierra</td></tr>
-                </tbody>
+        <section class="panel type-chart">
+            <p class="panel-title">Fortalezas y debilidades</p>
+            <div class="table-scroll">
+                <table class="chart-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Tipo</th>
+                            <th scope="col" class="col-strong"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>Fuerte contra</th>
+                            <th scope="col" class="col-weak"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>Débil contra</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"><span class="type-chip" data-type="fire">Fuego</span></th>
+                            <td><div class="type-list"><span class="type-chip" data-type="grass">Planta</span><span class="type-chip" data-type="ice">Hielo</span><span class="type-chip" data-type="bug">Bicho</span></div></td>
+                            <td><div class="type-list"><span class="type-chip" data-type="water">Agua</span><span class="type-chip" data-type="rock">Roca</span><span class="type-chip" data-type="ground">Tierra</span></div></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><span class="type-chip" data-type="water">Agua</span></th>
+                            <td><div class="type-list"><span class="type-chip" data-type="fire">Fuego</span><span class="type-chip" data-type="rock">Roca</span><span class="type-chip" data-type="ground">Tierra</span></div></td>
+                            <td><div class="type-list"><span class="type-chip" data-type="grass">Planta</span><span class="type-chip" data-type="electric">Eléctrico</span></div></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><span class="type-chip" data-type="grass">Planta</span></th>
+                            <td><div class="type-list"><span class="type-chip" data-type="water">Agua</span><span class="type-chip" data-type="rock">Roca</span><span class="type-chip" data-type="ground">Tierra</span></div></td>
+                            <td><div class="type-list"><span class="type-chip" data-type="fire">Fuego</span><span class="type-chip" data-type="ice">Hielo</span><span class="type-chip" data-type="flying">Volador</span></div></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><span class="type-chip" data-type="electric">Eléctrico</span></th>
+                            <td><div class="type-list"><span class="type-chip" data-type="water">Agua</span><span class="type-chip" data-type="flying">Volador</span></div></td>
+                            <td><div class="type-list"><span class="type-chip" data-type="ground">Tierra</span></div></td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </section>
-        <aside>
-            <p>Pokémon destacados</p>
-            <span>Un inicial para cada elemento.</span>
+
+        <aside class="types-aside">
+            <p class="eyebrow">Pokémon destacados</p>
+            <span class="aside-sub">Un inicial para cada elemento.</span>
             <div id="type-examples"></div>
         </aside>
     </main>
 
-    <footer>
+    <footer class="site-footer">
+        <img src="../img/pokemon-logo.png" alt="Pokémon">
         <p><small>Pokémon Lab · Tipos</small></p>
     </footer>
 
+    <script src="../js/pokemon-types.js"></script>
     <script>
         const urlPokeApi = "https://pokeapi.co/api/v2/pokemon/"
         const typesListElement = document.getElementById('types-list')
@@ -74,25 +97,34 @@
             .then(data => {
                 data.results.forEach(type => {
                     const li = document.createElement('li')
-                    li.textContent = type.name
+                    li.className = 'type-chip'
+                    li.dataset.type = type.name
+                    li.textContent = typeName(type.name)
                     typesListElement.appendChild(li)
                 })
             })
             .catch(error => console.error('Error fetching types:', error))
 
         const examplePokemons = [
-            { id: 4, type: 'Fuego' },
-            { id: 7, type: 'Agua' },
-            { id: 1, type: 'Planta' },
+            { id: 4, type: 'fire' },
+            { id: 7, type: 'water' },
+            { id: 1, type: 'grass' },
         ]
 
         Promise.all(examplePokemons.map(p => fetch(urlPokeApi + p.id).then(r => r.json())))
             .then(pokemons => {
                 pokemons.forEach((pokemon, index) => {
+                    const { type } = examplePokemons[index]
+                    const artwork = pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default
                     const figure = document.createElement('figure')
                     figure.innerHTML = `
-                        <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
-                        <figcaption>${examplePokemons[index].type} - ${pokemon.name}</figcaption>
+                        <div class="figure-art" data-type="${type}">
+                            <img src="${artwork}" alt="${pokemon.name}">
+                        </div>
+                        <figcaption>
+                            <strong>${pokemon.name}</strong>
+                            ${typeChip(type)}
+                        </figcaption>
                     `
                     typeExamplesContainer.appendChild(figure)
                 })

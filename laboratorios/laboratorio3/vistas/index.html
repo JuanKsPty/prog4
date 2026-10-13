@@ -3,56 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokédex Web</title>
+    <title>Pokédex | Pokémon Lab</title>
     <link rel="stylesheet" href="../css/styles.css">
 </head>
-<body class="container pokedex-page">
+<body class="pokedex-page">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-    <nav aria-label="Navegación principal">
+    <nav class="site-nav" aria-label="Navegación principal">
         <a class="nav-brand" href="../index.html" aria-label="Pokémon Lab, inicio"><img src="../img/pokemon-logo.png" alt="Pokémon"></a>
-        <a href="../index.html">Inicio</a>
-        <a href="index.html">Pokédex</a>
-        <a href="tipos.html">Tipos</a>
-        <a href="multimedia.html">Multimedia</a>
-        <a href="formulario.html">Entrenador</a>
+        <div class="nav-links">
+            <a href="../index.html">Inicio</a>
+            <a href="index.html" aria-current="page">Pokédex</a>
+            <a href="tipos.html">Tipos</a>
+            <a href="multimedia.html">Multimedia</a>
+            <a href="formulario.html">Entrenador</a>
+        </div>
     </nav>
 
-    <header class="page-title">
-        <p>REGIÓN KANTO · 001—020</p>
+    <header class="page-header">
+        <p class="eyebrow">Región Kanto · 001—020</p>
         <h1>Pokédex Pokémon</h1>
-        <span>Una primera expedición por las especies que iniciaron la aventura.</span>
+        <p class="lead">Una primera expedición por las especies que iniciaron la aventura.</p>
     </header>
 
-    <main>
-        <section>
+    <main id="contenido" class="pokedex-layout">
+        <section class="panel">
             <div class="pokedex-toolbar">
                 <div>
-                    <p>Explora los Pokémon iniciales de la Pokédex.</p>
-                    <span id="pokedex-status">Mostrando los primeros 20 Pokémon.</span>
+                    <p class="toolbar-title">Explora los Pokémon iniciales de la Pokédex.</p>
+                    <span id="pokedex-status" role="status">Mostrando los primeros 20 Pokémon.</span>
                 </div>
-                <label for="pokemon-search">Buscar Pokémon
-                    <input type="search" id="pokemon-search" placeholder="Ej. pikachu">
+                <label class="search-field" for="pokemon-search">Buscar Pokémon
+                    <span class="search-input">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                        <input type="search" id="pokemon-search" placeholder="Nombre o número, ej. pikachu" autocomplete="off" spellcheck="false">
+                    </span>
                 </label>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Imagen</th>
-                    </tr>
-                </thead>
-                <tbody id="pokemon-table-body">
-                </tbody>
-            </table>
+            <div class="table-scroll">
+                <table class="dex-table">
+                    <caption class="sr-only">Pokémon de la Pokédex. Selecciona uno para ver su ficha.</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">N.º</th>
+                            <th scope="col">Imagen</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pokemon-table-body">
+                    </tbody>
+                </table>
+            </div>
         </section>
 
-        <aside>
-            <p><small>¿Sabías que existen más de <strong>1000</strong> especies de Pokémon? Escucha su grito en <a href="multimedia.html">Multimedia</a>.</small></p>
+        <aside class="dex-aside" aria-label="Ficha del Pokémon seleccionado">
+            <div class="dex-device">
+                <div class="device-top" aria-hidden="true">
+                    <span class="device-lens"></span>
+                    <span class="device-led yellow"></span>
+                    <span class="device-led green"></span>
+                    <span class="device-label">Ficha</span>
+                </div>
+                <div class="device-screen" id="pokemon-detail">
+                    <div class="detail-placeholder" aria-hidden="true">
+                        <span class="skeleton"></span>
+                        <span class="skeleton" style="width: 60%; height: 28px"></span>
+                        <span class="skeleton" style="width: 40%"></span>
+                        <span class="skeleton"></span>
+                        <span class="skeleton"></span>
+                    </div>
+                </div>
+            </div>
+            <p class="fun-fact"><small>¿Sabías que existen más de <strong>1000</strong> especies de Pokémon? Escucha su grito en <a href="multimedia.html">Multimedia</a>.</small></p>
         </aside>
     </main>
 
-    <footer><p>Pokémon Lab · Pokédex</p></footer>
+    <footer class="site-footer">
+        <img src="../img/pokemon-logo.png" alt="Pokémon">
+        <p>Pokémon Lab · Pokédex</p>
+    </footer>
 
+    <script src="../js/pokemon-types.js"></script>
     <script src="../js/pokedex.js"></script>
 </body>
 </html>
