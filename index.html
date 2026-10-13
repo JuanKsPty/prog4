@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorios de Programación IV</title>
+    <meta name="description" content="Laboratorios de Desarrollo Web de Juan David Castillo, Universidad Tecnológica de Panamá.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&display=swap">
+    <style>
+        :root {
+            --papel: #f7f7fa;
+            --tinta: #1d1730;
+            --gris: #625c72;
+            --linea: #dcd6e6;
+            --morado: #5a2a82;
+            --morado-oscuro: #431f62;
+            --fuente: 'Bricolage Grotesque', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--papel);
+            color: var(--tinta);
+            font-family: var(--fuente);
+            font-size: 1.0625rem;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .pagina {
+            max-width: 46rem;
+            margin: 0 auto;
+            padding: clamp(3rem, 9vw, 6.5rem) 1.5rem 2rem;
+        }
+
+        h1,
+        h2,
+        h3 {
+            margin: 0;
+            line-height: 1.15;
+            text-wrap: balance;
+        }
+
+        .portada h1 {
+            font-size: clamp(2.5rem, 6.5vw, 3.75rem);
+            font-weight: 750;
+            letter-spacing: -0.02em;
+            line-height: 1.02;
+        }
+
+        /* Lista de laboratorios: el número grande es el ancla de cada entrada */
+        .labs,
+        .practicas ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* La columna del número se ajusta sola al número más ancho (1, 10, 12...) */
+        .labs {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            column-gap: 2rem;
+            margin-top: clamp(2.5rem, 6vw, 4rem);
+        }
+
+        .lab {
+            display: grid;
+            grid-column: 1 / -1;
+            grid-template-columns: 5rem 1fr;
+            grid-template-columns: subgrid;
+            padding: 2rem 0;
+            border-top: 1px solid var(--linea);
+        }
+
+        .lab:last-child {
+            border-bottom: 1px solid var(--linea);
+        }
+
+        .lab-numero {
+            color: var(--morado);
+            font-size: 6.5rem;
+            font-stretch: 75%;
+            font-weight: 800;
+            font-variant-numeric: lining-nums;
+            letter-spacing: -0.015em;
+            line-height: 0.78;
+        }
+
+        .lab-titulo {
+            font-size: 1.625rem;
+            font-weight: 650;
+        }
+
+        .lab-acciones {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem 1.5rem;
+            margin: 1rem 0 0;
+        }
+
+        .boton {
+            display: inline-block;
+            padding: 0.6rem 1.1rem;
+            border-radius: 0.4rem;
+            background: var(--morado);
+            color: #fff;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .boton:hover {
+            background: var(--morado-oscuro);
+        }
+
+        .enlace {
+            color: var(--morado);
+            font-weight: 600;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 0.2em;
+        }
+
+        .enlace:hover {
+            color: var(--morado-oscuro);
+            text-decoration-thickness: 2px;
+        }
+
+        a:focus-visible {
+            outline: 3px solid var(--morado);
+            outline-offset: 3px;
+            border-radius: 0.25rem;
+        }
+
+        /* Prácticas sueltas: misma estructura, sin número */
+        .practicas {
+            margin-top: 3.5rem;
+        }
+
+        .practicas h2 {
+            font-size: 1.25rem;
+            font-weight: 650;
+            margin-bottom: 0.75rem;
+        }
+
+        .practicas .lab {
+            display: block;
+            padding: 1.5rem 0;
+        }
+
+        .practicas .lab-numero {
+            display: none;
+        }
+
+        .practicas .lab-titulo {
+            font-size: 1.25rem;
+        }
+
+        .pie {
+            max-width: 46rem;
+            margin: 0 auto;
+            padding: 1rem 1.5rem 3rem;
+            color: var(--gris);
+            font-size: 0.9375rem;
+        }
+
+        .pie .enlace {
+            font-weight: 500;
+        }
+
+        .solo-lectores {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
+        }
+
+        @media (max-width: 560px) {
+            .labs {
+                column-gap: 1.25rem;
+            }
+
+            .lab-numero {
+                font-size: 4.25rem;
+            }
+
+            .lab-titulo {
+                font-size: 1.375rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="pagina">
+        <header class="portada">
+            <h1>Programación IV</h1>
+        </header>
+
+        <section aria-labelledby="titulo-laboratorios">
+            <h2 id="titulo-laboratorios" class="solo-lectores">Laboratorios</h2>
+            <ol class="labs" id="lista-laboratorios"></ol>
+            <noscript><p>Activa JavaScript para ver la lista de laboratorios.</p></noscript>
+        </section>
+
+        <section class="practicas" id="seccion-practicas" aria-labelledby="titulo-practicas">
+            <h2 id="titulo-practicas">Otras prácticas</h2>
+            <ul id="lista-practicas"></ul>
+        </section>
+    </main>
+
+    <footer class="pie">
+        <a class="enlace" href="https://github.com/JuanKsPty/prog4">Código fuente en GitHub</a>
+    </footer>
+
+    <template id="plantilla-entrada">
+        <li class="lab">
+            <span class="lab-numero" aria-hidden="true"></span>
+            <div>
+                <h3 class="lab-titulo"></h3>
+                <p class="lab-acciones">
+                    <a class="boton" data-abrir></a>
+                    <a class="enlace" data-codigo>Ver código</a>
+                </p>
+            </div>
+        </li>
+    </template>
+
+    <script>
+        const REPOSITORIO = 'https://github.com/JuanKsPty/prog4'
+
+        // Para agregar un laboratorio: crea su carpeta en laboratorios/ y añade un bloque aquí.
+        // "inicio" es la página que se abre; si se omite, se usa index.html.
+        const laboratorios = [
+            {
+                numero: 1,
+                titulo: 'Pokédex Web',
+                carpeta: 'laboratorios/laboratorio1'
+            },
+            {
+                numero: 2,
+                titulo: 'Formulario personal',
+                carpeta: 'laboratorios/laboratorio2'
+            },
+            {
+                numero: 3,
+                titulo: 'Pokémon Lab',
+                carpeta: 'laboratorios/laboratorio3'
+            }
+        ]
+
+        const practicas = [
+            {
+                titulo: 'Hola mundo',
+                carpeta: 'hello_world',
+                inicio: 'hello_world.html'
+            }
+        ]
+
+        const plantilla = document.getElementById('plantilla-entrada')
+
+        function crearEntrada(entrada, textoAbrir) {
+            const elemento = plantilla.content.cloneNode(true)
+            const titulo = elemento.querySelector('.lab-titulo')
+
+            if (entrada.numero) {
+                elemento.querySelector('.lab-numero').textContent = entrada.numero
+                const etiqueta = document.createElement('span')
+                etiqueta.className = 'solo-lectores'
+                etiqueta.textContent = `Laboratorio ${entrada.numero}: `
+                titulo.append(etiqueta)
+            }
+
+            titulo.append(entrada.titulo)
+
+            const abrir = elemento.querySelector('[data-abrir]')
+            abrir.textContent = textoAbrir
+            abrir.href = encodeURI(`${entrada.carpeta}/${entrada.inicio || 'index.html'}`)
+
+            elemento.querySelector('[data-codigo]').href = `${REPOSITORIO}/tree/main/${encodeURI(entrada.carpeta)}`
+            return elemento
+        }
+
+        // El más reciente primero: es el que normalmente toca revisar
+        const listaLaboratorios = document.getElementById('lista-laboratorios')
+        ;[...laboratorios]
+            .sort((a, b) => b.numero - a.numero)
+            .forEach(lab => listaLaboratorios.append(crearEntrada(lab, 'Abrir laboratorio')))
+
+        const listaPracticas = document.getElementById('lista-practicas')
+        practicas.forEach(practica => listaPracticas.append(crearEntrada(practica, 'Abrir práctica')))
+        document.getElementById('seccion-practicas').hidden = practicas.length === 0
+    </script>
+</body>
+</html>
