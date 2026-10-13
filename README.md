@@ -1,6 +1,6 @@
 # Programación IV
 
-Laboratorios de Desarrollo Web de Juan David Castillo, grupo 1SG131, Universidad Tecnológica de Panamá.
+Laboratorios de Juan Castillo, grupo 1SG131, Universidad Tecnológica de Panamá. Profesora: Giankaris Moreno.
 
 **Ver los laboratorios en línea:** https://juankspty.github.io/prog4/
 
