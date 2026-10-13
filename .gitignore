@@ -1,0 +1,21 @@
+# Documentos: guías, informes y entregas se guardan solo de forma local
+*.pdf
+*.doc
+*.docx
+*.odt
+*.rtf
+*.ppt
+*.pptx
+*.xls
+*.xlsx
+~$*
+
+# Archivos del sistema
+.DS_Store
+._*
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
