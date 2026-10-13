@@ -16,37 +16,3 @@ La página principal lista todos los laboratorios, del más reciente al más ant
 
 Otras prácticas: [Hola mundo](https://juankspty.github.io/prog4/hello_world/hello_world.html).
 
-## Estructura
-
-```
-index.html              Página principal con la lista de laboratorios
-laboratorios/
-  laboratorio1/         Cada laboratorio es independiente:
-  laboratorio2/         solo enlaza a sus propios archivos
-  laboratorio3/
-hello_world/            Prácticas sueltas
-```
-
-## Agregar un laboratorio nuevo
-
-1. Crea la carpeta `laboratorios/laboratorioN/` con su propio `index.html`. Todo lo que use el laboratorio (CSS, JS, imágenes) va dentro de esa carpeta y se enlaza con rutas relativas.
-2. En `index.html` de la raíz, añade un bloque a la lista `laboratorios`:
-
-   ```js
-   {
-       numero: 4,
-       titulo: 'Título del laboratorio',
-       carpeta: 'laboratorios/laboratorio4'
-   }
-   ```
-
-   Si la página de entrada no se llama `index.html`, agrega `inicio: 'otra-pagina.html'`.
-3. Agrega una fila a la tabla de este README, haz commit y push. GitHub Pages publica los cambios en uno o dos minutos.
-
-## Ver en local
-
-Abre `index.html` en el navegador. No hace falta instalar nada.
-
-## Documentos
-
-Las guías y los informes (`.pdf`, `.docx` y similares) se guardan solo de forma local y no se suben al repositorio; el `.gitignore` los excluye.
