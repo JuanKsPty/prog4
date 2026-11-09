@@ -288,6 +288,7 @@
 
         // Para agregar un laboratorio: crea su carpeta en laboratorios/ y añade un bloque aquí.
         // "inicio" es la página que se abre; si se omite, se usa index.html.
+        // "url" se usa cuando el laboratorio está publicado fuera de esta página, por ejemplo si necesita PHP.
         const laboratorios = [
             {
                 numero: 1,
@@ -307,7 +308,8 @@
             {
                 numero: 4,
                 titulo: 'Pokémon Lab con PHP',
-                carpeta: 'laboratorios/laboratorio4'
+                carpeta: 'laboratorios/laboratorio4',
+                url: 'https://lab4.juank.tech/'
             }
         ]
 
@@ -337,7 +339,7 @@
 
             const abrir = elemento.querySelector('[data-abrir]')
             abrir.textContent = textoAbrir
-            abrir.href = encodeURI(`${entrada.carpeta}/${entrada.inicio || 'index.html'}`)
+            abrir.href = entrada.url || encodeURI(`${entrada.carpeta}/${entrada.inicio || 'index.html'}`)
 
             elemento.querySelector('[data-codigo]').href = `${REPOSITORIO}/tree/main/${encodeURI(entrada.carpeta)}`
             return elemento

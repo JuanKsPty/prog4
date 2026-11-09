@@ -13,7 +13,7 @@ La página principal lista todos los laboratorios, del más reciente al más ant
 | 1 | Pokédex Web | Estructura y etiquetas semánticas de HTML5 | [laboratorio1](https://juankspty.github.io/prog4/laboratorios/laboratorio1/) |
 | 2 | Formulario personal | Formularios y tipos de entrada de HTML5 | [laboratorio2](https://juankspty.github.io/prog4/laboratorios/laboratorio2/) |
 | 3 | Pokémon Lab | Hojas de estilo y JavaScript con PokeAPI | [laboratorio3](https://juankspty.github.io/prog4/laboratorios/laboratorio3/) |
-| 4 | Pokémon Lab con PHP | Procesar formularios con POST en PHP | [laboratorio4](https://juankspty.github.io/prog4/laboratorios/laboratorio4/) |
+| 4 | Pokémon Lab con PHP | Procesar formularios con POST en PHP | [laboratorio4](https://lab4.juank.tech/) |
 
 Otras prácticas: [Hola mundo](https://juankspty.github.io/prog4/hello_world/hello_world.html).
 
