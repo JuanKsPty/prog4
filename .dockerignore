@@ -1,0 +1,8 @@
+.git
+.gitignore
+.nojekyll
+.dockerignore
+.claude
+Dockerfile
+README.md
+.DS_Store
