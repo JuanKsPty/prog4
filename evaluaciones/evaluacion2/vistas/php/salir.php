@@ -1,8 +1,7 @@
 <?php
 require 'funciones.php';
 
-$_SESSION = [];
-session_destroy();
+exigir_post('vistas/panel.php');
 
-header('Location: ' . RUTA_LOGIN);
-exit;
+cerrar_sesion();
+redirigir('index.php');

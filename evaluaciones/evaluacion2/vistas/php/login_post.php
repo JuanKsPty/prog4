@@ -1,19 +1,21 @@
 <?php
 require 'funciones.php';
 
-solo_post(RUTA_LOGIN);
+exigir_post('login.php');
 
-$usuario = leer('usuario');
-$clave = leer('clave');
+$correo = mb_strtolower(leer('correo'));
+$clave = is_string($_POST['clave'] ?? null) ? $_POST['clave'] : '';
 
-// Login sencillo: basta con escribir un nombre y una contraseña
-if ($usuario === '' || $clave === '') {
-    header('Location: ' . RUTA_LOGIN);
-    exit;
+$usuario = $correo === '' ? null : buscar_usuario_por_correo($correo);
+
+// Mismo mensaje si el correo no existe o la contraseña no coincide, para no revelar qué cuentas hay
+if ($usuario === null || !password_verify($clave, $usuario['clave_hash'])) {
+    guardar_flash([
+        'aviso' => 'Correo o contraseña incorrectos.',
+        'valores' => ['correo' => $correo],
+    ]);
+    redirigir('login.php');
 }
 
-session_regenerate_id(true);
-$_SESSION['nombre'] = mb_substr($usuario, 0, 40);
-
-header('Location: menu.php');
-exit;
+iniciar_sesion($usuario['id'], $usuario['nombre']);
+redirigir('vistas/panel.php');

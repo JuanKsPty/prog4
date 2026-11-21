@@ -1,0 +1,89 @@
+<?php
+require 'php/funciones.php';
+require 'php/plantilla.php';
+
+$usuario = requerir_sesion();
+$flash = tomar_flash();
+$ultimas = ultima_por_tipo($usuario['id']);
+$recientes = mediciones_recientes($usuario['id'], 8);
+$total = total_mediciones($usuario['id']);
+$indicadores = indicadores();
+
+abrir_portal('Inicio', 'inicio', $usuario);
+?>
+        <?= aviso($flash['exito'] ?? '', 'exito') ?>
+
+        <header class="saludo">
+            <h1 class="saludo-titulo">Bienvenido <?= mostrar($usuario['nombre']) ?></h1>
+            <p class="saludo-texto">
+                <?= fecha_de_hoy() ?>.
+                <?php if ($total === 0): ?>
+                    Todavía no tienes mediciones; empieza por cualquiera de los tres indicadores.
+                <?php else: ?>
+                    Tienes <?= $total ?> <?= $total === 1 ? 'medición guardada' : 'mediciones guardadas' ?>.
+                <?php endif; ?>
+            </p>
+        </header>
+
+        <section aria-labelledby="titulo-indicadores">
+            <h2 class="solo-lectores" id="titulo-indicadores">Tus indicadores</h2>
+            <div class="indicadores">
+                <?php foreach ($indicadores as $tipo => $indicador):
+                    $medicion = $ultimas[$tipo];
+                ?>
+                    <article class="indicador-tarjeta<?= $medicion ? ' ' . categoria_de_medicion($medicion)['tono'] : ' sin-datos' ?>">
+                        <div class="indicador-tarjeta-cabecera">
+                            <?= ilustracion($indicador['imagen'], $tipo, '', 'indicador-tarjeta-imagen') ?>
+                            <div>
+                                <h3 class="indicador-tarjeta-titulo"><?= $indicador['titulo'] ?></h3>
+                                <p class="indicador-tarjeta-fecha">
+                                    <?= $medicion ? 'Última medición: ' . mb_strtolower(fecha_relativa($medicion['creado_en'])) : 'Sin mediciones todavía' ?>
+                                </p>
+                            </div>
+                        </div>
+
+                        <?php if ($medicion):
+                            $lectura = lectura_de_medicion($medicion);
+                            $categoria = categoria_de_medicion($medicion);
+                        ?>
+                            <p class="indicador-tarjeta-valor"><?= $lectura['valor'] ?> <span class="indicador-tarjeta-unidad"><?= $lectura['unidad'] ?></span></p>
+                            <?= insignia($categoria) ?>
+                            <?= banda(categorias_de($tipo, $medicion['momento'] ?? 'ayunas'), $medicion['categoria'], posicion_de_medicion($medicion), false) ?>
+                            <a class="boton boton-secundario" href="<?= url($indicador['pagina']) ?>">Medir de nuevo</a>
+                        <?php else: ?>
+                            <p class="indicador-tarjeta-texto">Necesitas: <?= mb_strtolower($indicador['datos']) ?>.</p>
+                            <a class="boton boton-primario" href="<?= url($indicador['pagina']) ?>">Medir <?= $tipo === 'imc' ? 'mi IMC' : 'mi ' . mb_strtolower($indicador['nombre']) ?></a>
+                        <?php endif; ?>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        </section>
+
+        <section class="tarjeta recientes" aria-labelledby="titulo-recientes">
+            <h2 class="seccion-titulo" id="titulo-recientes">Mediciones recientes</h2>
+            <?php if (!$recientes): ?>
+                <div class="vacio">
+                    <?= icono('reloj', 'icono vacio-icono') ?>
+                    <p class="vacio-texto">Aquí verás tus últimas mediciones con su fecha y su resultado, para que puedas comparar cómo vas.</p>
+                </div>
+            <?php else: ?>
+                <ul class="lista-mediciones lista-mediciones-panel">
+                    <?php foreach ($recientes as $medicion):
+                        $lectura = lectura_de_medicion($medicion);
+                        $categoria = categoria_de_medicion($medicion);
+                        $indicador = $indicadores[$medicion['tipo']];
+                    ?>
+                        <li class="medicion">
+                            <span class="medicion-fecha"><?= fecha_relativa($medicion['creado_en']) ?></span>
+                            <a class="medicion-indicador" href="<?= url($indicador['pagina'] . '?m=' . (int) $medicion['id']) ?>"><?= icono($medicion['tipo']) ?> <?= $indicador['nombre'] ?></a>
+                            <span class="medicion-lectura"><?= $lectura['valor'] ?> <span class="medicion-unidad"><?= $lectura['unidad'] ?></span></span>
+                            <?= insignia($categoria) ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+        </section>
+
+        <p class="nota-medica"><?= icono('info') ?> Estos resultados son orientativos y no reemplazan una consulta médica.</p>
+<?php
+cerrar_portal();

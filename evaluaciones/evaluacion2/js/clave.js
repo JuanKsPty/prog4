@@ -1,11 +1,12 @@
-// Muestra u oculta la contraseña del formulario de inicio de sesión
-const botonVerClave = document.getElementById('ver-clave')
-const campoClave = document.getElementById('clave')
+// Muestra u oculta las contraseñas de los formularios de acceso
+document.querySelectorAll('.boton-ver-clave').forEach(boton => {
+    const campo = document.getElementById(boton.dataset.campo)
 
-botonVerClave.addEventListener('click', () => {
-    const mostrar = campoClave.type === 'password'
-    campoClave.type = mostrar ? 'text' : 'password'
-    botonVerClave.classList.toggle('esta-visible', mostrar)
-    botonVerClave.setAttribute('aria-pressed', String(mostrar))
-    botonVerClave.setAttribute('aria-label', mostrar ? 'Ocultar contraseña' : 'Mostrar contraseña')
+    boton.addEventListener('click', () => {
+        const mostrar = campo.type === 'password'
+        campo.type = mostrar ? 'text' : 'password'
+        boton.classList.toggle('esta-visible', mostrar)
+        boton.setAttribute('aria-pressed', String(mostrar))
+        boton.setAttribute('aria-label', mostrar ? 'Ocultar contraseña' : 'Mostrar contraseña')
+    })
 })
