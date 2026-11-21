@@ -19,7 +19,7 @@ La página principal lista todos los laboratorios, del más reciente al más ant
 
 | N.° | Evaluación | Tema | Abrir |
 | --- | --- | --- | --- |
-| 2 | Consultorio ABC (con Agustín Traverso) | Sitio con login, IMC, glucosa y presión arterial en HTML5, CSS3 y PHP | [evaluacion2](https://evaluacion2.prog4.juank.tech/) |
+| 2 | Consultorio ABC (con Agustín Traverso) | Portal con registro e inicio de sesión en MySQL, IMC, glucosa, presión arterial e historial en HTML5, CSS3 y PHP | [evaluacion2](https://evaluacion2.prog4.juank.tech/) |
 
 Cada evaluación se despliega aparte en Dokploy desde su carpeta en `evaluaciones/`.
 

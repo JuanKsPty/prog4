@@ -34,7 +34,7 @@
         }
 
         .pagina {
-            max-width: 46rem;
+            max-width: 72rem;
             margin: 0 auto;
             padding: clamp(3rem, 9vw, 6.5rem) 1.5rem 2rem;
         }
@@ -162,6 +162,61 @@
             border-radius: 0.25rem;
         }
 
+        /* Evaluaciones y laboratorios: una columna en móvil (evaluaciones arriba) y lado a lado en escritorio */
+        .columnas {
+            display: flex;
+            flex-direction: column;
+            gap: 3.5rem;
+            margin-top: clamp(2.5rem, 6vw, 4rem);
+        }
+
+        .columna {
+            min-width: 0;
+        }
+
+        .columna .labs {
+            margin-top: 0;
+        }
+
+        .columna-titulo {
+            display: flex;
+            align-items: baseline;
+            gap: 0.6rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .columna-cantidad {
+            color: var(--gris);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .lab-etiqueta {
+            display: block;
+            margin-bottom: 0.2rem;
+            color: var(--morado);
+            font-size: 0.9375rem;
+            font-weight: 600;
+        }
+
+        @media (min-width: 900px) {
+            .columnas {
+                flex-direction: row-reverse;
+                align-items: flex-start;
+                gap: 4.5rem;
+            }
+
+            .columna-laboratorios {
+                flex: 1.5;
+            }
+
+            .columna-evaluaciones {
+                flex: 1;
+            }
+        }
+
         /* Prácticas sueltas: misma estructura, sin número */
         .practicas {
             margin-top: 3.5rem;
@@ -187,7 +242,7 @@
         }
 
         .pie {
-            max-width: 46rem;
+            max-width: 72rem;
             margin: 0 auto;
             padding: 1rem 1.5rem 3rem;
             color: var(--gris);
@@ -251,16 +306,18 @@
             </dl>
         </header>
 
-        <section aria-labelledby="titulo-laboratorios">
-            <h2 id="titulo-laboratorios" class="solo-lectores">Laboratorios</h2>
-            <ol class="labs" id="lista-laboratorios"></ol>
-            <noscript><p>Activa JavaScript para ver la lista de laboratorios.</p></noscript>
-        </section>
+        <div class="columnas">
+            <section class="columna columna-evaluaciones" id="seccion-evaluaciones" aria-labelledby="titulo-evaluaciones">
+                <h2 class="columna-titulo" id="titulo-evaluaciones">Evaluaciones <span class="columna-cantidad" id="cantidad-evaluaciones"></span></h2>
+                <ol class="labs" id="lista-evaluaciones"></ol>
+            </section>
 
-        <section class="practicas" id="seccion-evaluaciones" aria-labelledby="titulo-evaluaciones">
-            <h2 id="titulo-evaluaciones">Evaluaciones</h2>
-            <ul id="lista-evaluaciones"></ul>
-        </section>
+            <section class="columna columna-laboratorios" aria-labelledby="titulo-laboratorios">
+                <h2 class="columna-titulo" id="titulo-laboratorios">Laboratorios <span class="columna-cantidad" id="cantidad-laboratorios"></span></h2>
+                <ol class="labs" id="lista-laboratorios"></ol>
+                <noscript><p>Activa JavaScript para ver la lista de laboratorios.</p></noscript>
+            </section>
+        </div>
 
         <section class="practicas" id="seccion-practicas" aria-labelledby="titulo-practicas">
             <h2 id="titulo-practicas">Otras prácticas</h2>
@@ -321,7 +378,8 @@
         // Evaluaciones: cada una se despliega aparte en Dokploy con su propio dominio
         const evaluaciones = [
             {
-                titulo: 'Evaluación 2 · Consultorio ABC',
+                numero: 2,
+                titulo: 'Consultorio ABC',
                 carpeta: 'evaluaciones/evaluacion2',
                 url: 'https://evaluacion2.prog4.juank.tech/'
             }
@@ -337,15 +395,16 @@
 
         const plantilla = document.getElementById('plantilla-entrada')
 
-        function crearEntrada(entrada, textoAbrir) {
+        // "tipo" es la etiqueta visible sobre el nombre: Laboratorio 4, Evaluación 2...
+        function crearEntrada(entrada, textoAbrir, tipo) {
             const elemento = plantilla.content.cloneNode(true)
             const titulo = elemento.querySelector('.lab-titulo')
 
             if (entrada.numero) {
                 elemento.querySelector('.lab-numero').textContent = entrada.numero
                 const etiqueta = document.createElement('span')
-                etiqueta.className = 'solo-lectores'
-                etiqueta.textContent = `Laboratorio ${entrada.numero}: `
+                etiqueta.className = 'lab-etiqueta'
+                etiqueta.textContent = `${tipo} ${entrada.numero}`
                 titulo.append(etiqueta)
             }
 
@@ -363,10 +422,14 @@
         const listaLaboratorios = document.getElementById('lista-laboratorios')
         ;[...laboratorios]
             .sort((a, b) => b.numero - a.numero)
-            .forEach(lab => listaLaboratorios.append(crearEntrada(lab, 'Abrir laboratorio')))
+            .forEach(lab => listaLaboratorios.append(crearEntrada(lab, 'Abrir laboratorio', 'Laboratorio')))
+        document.getElementById('cantidad-laboratorios').textContent = laboratorios.length
 
         const listaEvaluaciones = document.getElementById('lista-evaluaciones')
-        evaluaciones.forEach(evaluacion => listaEvaluaciones.append(crearEntrada(evaluacion, 'Abrir evaluación')))
+        ;[...evaluaciones]
+            .sort((a, b) => b.numero - a.numero)
+            .forEach(evaluacion => listaEvaluaciones.append(crearEntrada(evaluacion, 'Abrir evaluación', 'Evaluación')))
+        document.getElementById('cantidad-evaluaciones').textContent = evaluaciones.length
         document.getElementById('seccion-evaluaciones').hidden = evaluaciones.length === 0
 
         const listaPracticas = document.getElementById('lista-practicas')
