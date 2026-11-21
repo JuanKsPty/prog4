@@ -257,6 +257,11 @@
             <noscript><p>Activa JavaScript para ver la lista de laboratorios.</p></noscript>
         </section>
 
+        <section class="practicas" id="seccion-evaluaciones" aria-labelledby="titulo-evaluaciones">
+            <h2 id="titulo-evaluaciones">Evaluaciones</h2>
+            <ul id="lista-evaluaciones"></ul>
+        </section>
+
         <section class="practicas" id="seccion-practicas" aria-labelledby="titulo-practicas">
             <h2 id="titulo-practicas">Otras prácticas</h2>
             <ul id="lista-practicas"></ul>
@@ -313,6 +318,15 @@
             }
         ]
 
+        // Evaluaciones: cada una se despliega aparte en Dokploy con su propio dominio
+        const evaluaciones = [
+            {
+                titulo: 'Evaluación 2 · Consultorio ABC',
+                carpeta: 'evaluaciones/evaluacion2',
+                url: 'https://evaluacion2.prog4.juank.tech/'
+            }
+        ]
+
         const practicas = [
             {
                 titulo: 'Hola mundo',
@@ -350,6 +364,10 @@
         ;[...laboratorios]
             .sort((a, b) => b.numero - a.numero)
             .forEach(lab => listaLaboratorios.append(crearEntrada(lab, 'Abrir laboratorio')))
+
+        const listaEvaluaciones = document.getElementById('lista-evaluaciones')
+        evaluaciones.forEach(evaluacion => listaEvaluaciones.append(crearEntrada(evaluacion, 'Abrir evaluación')))
+        document.getElementById('seccion-evaluaciones').hidden = evaluaciones.length === 0
 
         const listaPracticas = document.getElementById('lista-practicas')
         practicas.forEach(practica => listaPracticas.append(crearEntrada(practica, 'Abrir práctica')))

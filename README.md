@@ -15,5 +15,13 @@ La página principal lista todos los laboratorios, del más reciente al más ant
 | 3 | Pokémon Lab | Hojas de estilo y JavaScript con PokeAPI | [laboratorio3](https://prog4.juank.tech/laboratorios/laboratorio3/) |
 | 4 | Pokémon Lab con PHP | Procesar formularios con POST en PHP | [laboratorio4](https://prog4.juank.tech/laboratorios/laboratorio4/) |
 
+## Evaluaciones
+
+| N.° | Evaluación | Tema | Abrir |
+| --- | --- | --- | --- |
+| 2 | Consultorio ABC (con Agustín Traverso) | Sitio con login, IMC, glucosa y presión arterial en HTML5, CSS3 y PHP | [evaluacion2](https://evaluacion2.prog4.juank.tech/) |
+
+Cada evaluación se despliega aparte en Dokploy desde su carpeta en `evaluaciones/`.
+
 Otras prácticas: [Hola mundo](https://prog4.juank.tech/hello_world/hello_world.html).
 
