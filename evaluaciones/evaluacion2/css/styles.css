@@ -549,8 +549,34 @@
    -------------------------------------------------------------------------- */
 
 .cuerpo-landing {
+    position: relative;
     min-height: 100vh;
     min-height: 100dvh;
+}
+
+.landing-barra-interior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    max-width: var(--ancho-con-margen);
+    margin: 0 auto;
+    padding: 0.85rem 1.5rem;
+}
+
+.landing-acciones {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.landing-entrar {
+    text-decoration: none;
+}
+
+.landing-barra .marca,
+.landing-acciones .boton {
+    white-space: nowrap;
 }
 
 .portada {
@@ -563,7 +589,32 @@
     width: 100%;
     max-width: var(--ancho-con-margen);
     margin: 0 auto;
-    padding: clamp(2rem, 6vh, 4rem) 1.5rem;
+    padding: 1.5rem;
+}
+
+/* En pantallas grandes la barra y el pie flotan arriba y abajo, y la portada
+   queda centrada respecto a toda la pantalla, no solo al espacio entre ellos */
+@media (min-width: 761px) {
+    .cuerpo-landing .landing-barra {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 2;
+    }
+
+    .cuerpo-landing .pie {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .portada {
+        min-height: 100vh;
+        min-height: 100dvh;
+        padding-block: 7rem;
+    }
 }
 
 .portada-titulo {
@@ -594,7 +645,8 @@
 .portada-imagen {
     width: 100%;
     max-width: 30rem;
-    max-height: 70vh;
+    max-height: calc(100vh - 16rem);
+    max-height: calc(100dvh - 16rem);
     height: auto;
     object-fit: contain;
     justify-self: end;
@@ -1387,8 +1439,8 @@
         justify-self: center;
         width: auto;
         max-width: min(100%, 20rem);
-        max-height: 34vh;
-        max-height: 34dvh;
+        max-height: 28vh;
+        max-height: 28dvh;
     }
 
     .portada-bajada {
@@ -1508,12 +1560,20 @@
 @media (max-width: 480px) {
     .portada {
         gap: 1.25rem;
-        padding-block: 1.5rem;
+        padding-block: 1rem 1.5rem;
     }
 
     .portada-imagen {
-        max-height: 30vh;
-        max-height: 30dvh;
+        max-height: 24vh;
+        max-height: 24dvh;
+    }
+
+    .portada-titulo {
+        font-size: 2rem;
+    }
+
+    .landing-entrar {
+        display: none;
     }
 
     .marca-nombre {
