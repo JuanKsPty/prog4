@@ -1052,6 +1052,7 @@
 }
 
 .medicion-lectura {
+    white-space: nowrap;
     font-size: 1.0625rem;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
@@ -1485,6 +1486,22 @@
 
     .cuenta {
         grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* Celulares con poca altura: la portada sigue cabiendo en una pantalla */
+@media (max-width: 760px) and (max-height: 700px) {
+    .cuerpo-landing .portada-imagen {
+        max-height: 22vh;
+        max-height: 22dvh;
+    }
+
+    .cuerpo-landing .portada-titulo {
+        font-size: 1.875rem;
+    }
+
+    .cuerpo-landing .portada-bajada {
+        font-size: 1rem;
     }
 }
 

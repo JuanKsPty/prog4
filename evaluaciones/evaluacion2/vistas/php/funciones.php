@@ -424,7 +424,8 @@ function fecha_relativa($fecha) {
     $momento = new DateTime($fecha);
     $dia = (clone $momento)->setTime(0, 0);
     $dias = (int) $dia->diff(new DateTime('today'))->format('%r%a');
-    $hora = $momento->format('g:i') . ($momento->format('A') === 'AM' ? ' a. m.' : ' p. m.');
+    // Espacios que no se cortan, para que la hora no quede partida en dos líneas
+    $hora = $momento->format('g:i') . ($momento->format('A') === 'AM' ? "\u{a0}a.\u{a0}m." : "\u{a0}p.\u{a0}m.");
 
     if ($dias <= 0) {
         return 'Hoy, ' . $hora;
