@@ -4,7 +4,7 @@
 function frase_resultado($medicion, $lectura, $categoria) {
     $nombre = '<strong>' . mostrar($categoria['nombre']) . '</strong>';
     if ($medicion['tipo'] === 'imc') {
-        return 'Tu IMC es <strong>' . $lectura['valor'] . '</strong> y se considera ' . $nombre . '.';
+        return 'Su IMC es <strong>' . $lectura['valor'] . '</strong> y se categoriza como ' . $nombre . '.';
     }
     if ($medicion['tipo'] === 'glucosa') {
         $cuando = $medicion['momento'] === 'ayunas' ? 'en ayunas' : 'después de comer';

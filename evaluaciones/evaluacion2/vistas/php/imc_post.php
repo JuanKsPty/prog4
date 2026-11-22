@@ -26,7 +26,7 @@ $imc = calcular_imc($peso, $estatura);
 $id = guardar_medicion($usuario['id'], 'imc', clasificar_imc($imc), [
     'peso' => round($peso, 1),
     'estatura' => round($estatura, 2),
-    'imc' => round($imc, 2),
+    'imc' => $imc,
 ]);
 
 redirigir('vistas/imc.php?m=' . $id);

@@ -82,9 +82,9 @@ function categorias_imc() {
     ];
 }
 
-// IMC = peso (kg) / estatura² (m)
+// IMC = peso (kg) / estatura² (m), con 2 decimales: se clasifica el mismo valor que se muestra
 function calcular_imc($peso, $estatura) {
-    return $peso / ($estatura * $estatura);
+    return round($peso / ($estatura * $estatura), 2);
 }
 
 function clasificar_imc($imc) {
