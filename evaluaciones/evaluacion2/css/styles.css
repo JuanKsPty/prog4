@@ -984,7 +984,13 @@
    Panel de inicio
    -------------------------------------------------------------------------- */
 
+/* Saludo con la fecha y el total de mediciones a la derecha; si no cabe, pasa debajo */
 .saludo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.6rem 2rem;
     margin-bottom: 2rem;
 }
 
@@ -998,7 +1004,7 @@
 }
 
 .saludo-texto {
-    margin: 0.6rem 0 0;
+    margin: 0;
     color: var(--tinta-suave);
     font-size: var(--texto-m);
 }
