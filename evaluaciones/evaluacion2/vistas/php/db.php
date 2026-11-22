@@ -31,6 +31,9 @@ function conectar() {
             $pdo->exec("USE `$base`");
         }
         crear_tablas($pdo);
+        if ($config['usuario_prueba']) {
+            crear_usuario_prueba($pdo);
+        }
     } catch (PDOException $error) {
         error_log('Consultorio ABC, error de base de datos: ' . $error->getMessage());
         mostrar_error_bd();
@@ -67,6 +70,12 @@ function crear_tablas($pdo) {
         KEY mediciones_usuario (usuario_id, tipo, creado_en),
         CONSTRAINT mediciones_usuario_fk FOREIGN KEY (usuario_id) REFERENCES usuarios (id) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+}
+
+// INSERT IGNORE: si el correo ya existe no hace nada
+function crear_usuario_prueba($pdo) {
+    $consulta = $pdo->prepare('INSERT IGNORE INTO usuarios (nombre, correo, clave_hash, creado_en) VALUES (?, ?, ?, ?)');
+    $consulta->execute([USUARIO_PRUEBA['nombre'], USUARIO_PRUEBA['correo'], USUARIO_PRUEBA['clave_hash'], date('Y-m-d H:i:s')]);
 }
 
 // Página mínima cuando MySQL no responde: no muestra detalles técnicos al visitante

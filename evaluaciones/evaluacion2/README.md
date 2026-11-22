@@ -10,9 +10,23 @@ El paciente crea una cuenta, inicia sesión y calcula su IMC, su glucosa en sang
 1. Copia esta carpeta (`evaluacion2`) dentro de `C:\xampp\htdocs\`.
 2. Abre el panel de XAMPP e inicia **Apache** y **MySQL**.
 3. Entra a <http://localhost/evaluacion2/>.
-4. Pulsa **Crear cuenta**, regístrate y empieza a medir.
+4. Pulsa **Iniciar sesión** y entra con el usuario de prueba, o pulsa **Crear cuenta** para registrarte.
 
-La base de datos `consultorio_abc` y sus tablas se crean solas la primera vez que se abre el sitio. Si prefieres crearlas a mano, importa `sql/consultorio_abc.sql` desde phpMyAdmin.
+La base de datos `consultorio_abc`, sus tablas y el usuario de prueba se crean solos la primera vez que se abre el sitio.
+
+### Usuario de prueba
+
+| Correo | Contraseña |
+|---|---|
+| `prueba@consultorio.test` | `Prueba1234` |
+
+Al entrar, el panel muestra "Bienvenido Paciente Prueba" y el menú con IMC, Glucosa en sangre y Presión arterial.
+
+### Importar la base de datos a mano (opcional)
+
+1. Abre <http://localhost/phpmyadmin/>.
+2. Ve a la pestaña **Importar**, elige `sql/consultorio_abc.sql` y pulsa **Importar** (o **Continuar**).
+3. El script crea la base `consultorio_abc`, las tablas `usuarios` y `mediciones`, y el usuario de prueba. Puedes importarlo varias veces sin duplicar nada.
 
 ### Requisitos
 
@@ -47,4 +61,4 @@ Todos los cálculos se hacen en PHP. Los archivos de `js/` solo sirven para la i
 
 ## Entrega
 
-En el .zip para el profesor no hace falta incluir `Dockerfile` ni `.dockerignore`: solo sirven para publicar el sitio en el servidor y XAMPP no los usa.
+En el .zip para el profesor no hace falta incluir `Dockerfile`, `.dockerignore` ni `REVISION.md`: los dos primeros solo sirven para publicar el sitio en el servidor y el último es la revisión interna del grupo.
