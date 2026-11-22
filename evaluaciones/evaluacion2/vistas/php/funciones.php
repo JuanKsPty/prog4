@@ -9,9 +9,10 @@ const CARPETA_IMAGENES = __DIR__ . '/../../img/';
    Lectura y salida de datos
    -------------------------------------------------------------------------- */
 
+// Texto del formulario sin espacios a los lados; si no viene en UTF-8 se trata como vacío
 function leer($campo) {
     $valor = $_POST[$campo] ?? '';
-    return is_string($valor) ? trim($valor) : '';
+    return is_string($valor) && mb_check_encoding($valor, 'UTF-8') ? trim($valor) : '';
 }
 
 // Lee un número del formulario; acepta coma o punto decimal. Devuelve null si no es un número
@@ -22,7 +23,7 @@ function leer_numero($campo) {
 
 // htmlspecialchars evita que lo escrito en el formulario se ejecute como HTML
 function mostrar($valor) {
-    return htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars((string) $valor, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
 function formato_numero($numero, $decimales = 2) {
