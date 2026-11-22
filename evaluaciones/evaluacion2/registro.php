@@ -14,7 +14,7 @@ $valores = $flash['valores'] ?? [];
 abrir_acceso('Crear cuenta', 'registro');
 ?>
                 <h1 class="acceso-titulo">Crea tu cuenta</h1>
-                <p class="acceso-texto">Así guardamos tus mediciones y puedes ver tu historial cuando vuelvas.</p>
+                <p class="acceso-texto">Para guardar tu historial de mediciones.</p>
 
                 <?= aviso($flash['aviso'] ?? '') ?>
 

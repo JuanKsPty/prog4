@@ -4,7 +4,7 @@
 function documento_inicio($titulo, $clase_cuerpo = '') {
     ?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="documento">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -100,7 +100,7 @@ function abrir_portal($titulo, $activo, $usuario) {
 function cerrar_portal() {
     echo "    </main>\n";
     pie();
-    documento_fin(['menu.js']);
+    documento_fin(['menu.js', 'formatos.js']);
 }
 
 /* --------------------------------------------------------------------------

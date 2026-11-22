@@ -24,7 +24,19 @@
     --radio-s: 10px;
     --radio-m: 16px;
     --radio-l: 24px;
+    /* Tres niveles de elevación: detalle, tarjeta y elemento flotante */
+    --sombra-s: 0 1px 3px rgba(19, 32, 59, 0.12);
     --sombra: 0 1px 2px rgba(19, 32, 59, 0.05), 0 4px 16px rgba(19, 32, 59, 0.05);
+    --sombra-alta: 0 12px 32px rgba(19, 32, 59, 0.14);
+    --anillo-foco: 0 0 0 3px rgba(31, 95, 214, 0.15);
+
+    /* Escala de texto: todos los tamaños salen de aquí, salvo los títulos grandes con clamp() */
+    --texto-xs: 0.75rem;
+    --texto-s: 0.875rem;
+    --texto-m: 1rem;
+    --texto-l: 1.125rem;
+    --texto-xl: 1.75rem;
+    --texto-2xl: 2.75rem;
     --ancho: 72rem;
     --ancho-con-margen: calc(var(--ancho) + 3rem);
 
@@ -56,6 +68,11 @@
     box-sizing: border-box;
 }
 
+/* Reserva el espacio de la barra de scroll para que el contenido no salte entre páginas */
+.documento {
+    scrollbar-gutter: stable;
+}
+
 .cuerpo {
     margin: 0;
     min-height: 100vh;
@@ -64,7 +81,7 @@
     background: var(--fondo);
     color: var(--tinta);
     font-family: var(--fuente);
-    font-size: 1rem;
+    font-size: var(--texto-m);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -133,7 +150,6 @@
 .pestana:focus-visible,
 .marca:focus-visible,
 .medicion-indicador:focus-visible,
-.referencia-resumen:focus-visible,
 .boton-ver-clave:focus-visible,
 .opcion:focus-within {
     outline: 3px solid rgba(31, 95, 214, 0.4);
@@ -203,7 +219,7 @@
 .boton-grande {
     min-height: 3.25rem;
     padding: 0 1.5rem;
-    font-size: 1.0625rem;
+    font-size: var(--texto-m);
 }
 
 .boton-ancho {
@@ -230,20 +246,34 @@
 
 .campo-etiqueta {
     padding: 0;
-    font-size: 0.9375rem;
+    font-size: var(--texto-s);
     font-weight: 600;
+}
+
+/* El legend de un fieldset no participa del gap de la grilla: se le da el mismo espacio a mano */
+.campo-opciones > .campo-etiqueta {
+    margin-bottom: 0.4rem;
+}
+
+/* Etiqueta con su ayuda a la derecha, en la misma línea */
+.campo-cabecera {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0 1rem;
 }
 
 .campo-ayuda {
     margin: 0;
     color: var(--tinta-tenue);
-    font-size: 0.875rem;
+    font-size: var(--texto-s);
 }
 
 .campo-error {
     margin: 0;
     color: var(--rojo);
-    font-size: 0.875rem;
+    font-size: var(--texto-s);
     font-weight: 600;
 }
 
@@ -256,7 +286,7 @@
     background: var(--superficie);
     color: var(--tinta);
     font: inherit;
-    font-size: 1.0625rem;
+    font-size: var(--texto-m);
     font-variant-numeric: tabular-nums;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
@@ -271,7 +301,7 @@
 
 .campo-entrada:focus {
     border-color: var(--azul);
-    box-shadow: 0 0 0 3px rgba(31, 95, 214, 0.15);
+    box-shadow: var(--anillo-foco);
     outline: none;
 }
 
@@ -294,7 +324,7 @@
     top: 50%;
     transform: translateY(-50%);
     color: var(--tinta-tenue);
-    font-size: 0.9375rem;
+    font-size: var(--texto-s);
     pointer-events: none;
 }
 
@@ -312,7 +342,7 @@
     width: 2.5rem;
     height: 2.5rem;
     border: 0;
-    border-radius: 8px;
+    border-radius: var(--radio-s);
     background: transparent;
     color: var(--tinta-tenue);
     cursor: pointer;
@@ -332,17 +362,19 @@
     display: block;
 }
 
+/* Una opción por fila: círculo, título y detalle en la misma línea */
 .opciones {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.6rem;
+    gap: 0.5rem;
 }
 
 .opcion {
-    position: relative;
     display: grid;
-    gap: 0.15rem;
-    padding: 0.9rem 1rem 0.9rem 2.75rem;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.1rem 0.75rem;
+    min-height: 3rem;
+    padding: 0.6rem 1rem;
     border: 1px solid var(--linea-fuerte);
     border-radius: var(--radio-s);
     background: var(--superficie);
@@ -360,9 +392,7 @@
 }
 
 .opcion input {
-    position: absolute;
-    left: 1rem;
-    top: 1.05rem;
+    flex: none;
     width: 1.1rem;
     height: 1.1rem;
     margin: 0;
@@ -375,7 +405,8 @@
 
 .opcion-detalle {
     color: var(--tinta-tenue);
-    font-size: 0.875rem;
+    font-size: var(--texto-s);
+    white-space: nowrap;
 }
 
 /* --------------------------------------------------------------------------
@@ -416,7 +447,7 @@
     gap: 0.6rem;
     border-radius: var(--radio-s);
     color: var(--tinta);
-    font-size: 1.0625rem;
+    font-size: var(--texto-m);
     font-weight: 700;
     letter-spacing: -0.01em;
     text-decoration: none;
@@ -448,7 +479,7 @@
 .pie-curso {
     margin: 0.15rem 0 0;
     color: var(--tinta-tenue);
-    font-size: 0.875rem;
+    font-size: var(--texto-s);
 }
 
 /* --------------------------------------------------------------------------
@@ -475,13 +506,20 @@
 .banda-marcador {
     position: absolute;
     top: 50%;
+    /* --posicion la calcula posicion_en_banda() en PHP para cada medición */
+    left: var(--posicion, 50%);
     width: 1.375rem;
     height: 1.375rem;
     transform: translate(-50%, -50%);
     border: 4px solid var(--tinta);
     border-radius: 50%;
     background: #fff;
-    box-shadow: 0 0 0 3px #fff, 0 2px 6px rgba(19, 32, 59, 0.25);
+    box-shadow: 0 0 0 3px #fff, var(--sombra-s);
+}
+
+/* Al pasar el mouse por un tramo se ve su nombre y rango (atributo title) */
+.banda-tramo {
+    cursor: help;
 }
 
 .banda-leyenda {
@@ -500,17 +538,10 @@
 }
 
 .banda-nombre {
-    font-size: 0.8125rem;
+    color: var(--tinta-suave);
+    font-size: var(--texto-xs);
     font-weight: 600;
     line-height: 1.25;
-    hyphens: auto;
-    overflow-wrap: break-word;
-}
-
-.banda-rango {
-    color: var(--tinta-tenue);
-    font-size: 0.75rem;
-    font-variant-numeric: tabular-nums;
 }
 
 .banda-categoria.es-actual .banda-nombre {
@@ -531,7 +562,7 @@
     border-radius: 999px;
     background: var(--tono-suave);
     color: var(--tono-texto);
-    font-size: 0.875rem;
+    font-size: var(--texto-s);
     font-weight: 700;
     white-space: nowrap;
 }
@@ -631,7 +662,7 @@
     margin: 1.5rem 0 0;
     max-width: 48ch;
     color: var(--tinta-suave);
-    font-size: 1.1875rem;
+    font-size: var(--texto-l);
     line-height: 1.55;
 }
 
@@ -652,7 +683,7 @@
     justify-self: end;
     border-radius: var(--radio-l);
     background: var(--superficie);
-    box-shadow: 0 30px 60px -30px rgba(23, 72, 166, 0.35);
+    box-shadow: var(--sombra-alta);
 }
 
 /* --------------------------------------------------------------------------
@@ -696,7 +727,7 @@
 .acceso-arte-texto {
     margin: 0;
     color: var(--tinta-suave);
-    font-size: 1.0625rem;
+    font-size: var(--texto-m);
 }
 
 .acceso-contenido {
@@ -713,7 +744,7 @@
     gap: 0.25rem;
     margin-bottom: 2rem;
     padding: 0.25rem;
-    border-radius: calc(var(--radio-s) + 4px);
+    border-radius: var(--radio-m);
     background: var(--fondo);
 }
 
@@ -734,12 +765,12 @@
 .pestana[aria-current='page'] {
     background: var(--superficie);
     color: var(--tinta);
-    box-shadow: 0 1px 3px rgba(19, 32, 59, 0.12);
+    box-shadow: var(--sombra-s);
 }
 
 .acceso-titulo {
     margin: 0;
-    font-size: 1.75rem;
+    font-size: var(--texto-xl);
     font-weight: 800;
     letter-spacing: -0.02em;
 }
@@ -853,7 +884,7 @@
     border-radius: 50%;
     background: var(--menta);
     color: #fff;
-    font-size: 0.875rem;
+    font-size: var(--texto-s);
     font-weight: 700;
 }
 
@@ -868,7 +899,7 @@
     border: 1px solid var(--linea);
     border-radius: var(--radio-m);
     background: var(--superficie);
-    box-shadow: 0 12px 32px rgba(19, 32, 59, 0.14);
+    box-shadow: var(--sombra-alta);
 }
 
 .menu-usuario-panel form {
@@ -916,41 +947,55 @@
     text-wrap: balance;
 }
 
-.bajada {
-    margin: 0.5rem 0 0;
-    max-width: 60ch;
-    color: var(--tinta-suave);
-    font-size: 1.0625rem;
-}
-
 .tarjeta {
     padding: clamp(1.25rem, 3vw, 1.75rem);
     border: 1px solid var(--linea);
     border-radius: var(--radio-m);
     background: var(--superficie);
+    box-shadow: var(--sombra);
 }
 
 .seccion-titulo {
     margin: 0 0 1.25rem;
-    font-size: 1.125rem;
+    font-size: var(--texto-l);
     font-weight: 700;
     letter-spacing: -0.01em;
 }
 
+/* Título de "Mediciones recientes" con la nota médica a la derecha; si no cabe, pasa debajo */
+.recientes-cabecera {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.4rem 1.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.recientes-cabecera .seccion-titulo {
+    margin: 0;
+}
+
 .nota-medica {
     display: flex;
-    gap: 0.6rem;
+    gap: 0.4rem;
     align-items: center;
-    margin: 2rem 0 0;
+    margin: 0;
     color: var(--tinta-tenue);
-    font-size: 0.9375rem;
+    font-size: var(--texto-s);
 }
 
 /* --------------------------------------------------------------------------
    Panel de inicio
    -------------------------------------------------------------------------- */
 
+/* Saludo con la fecha y el total de mediciones a la derecha; si no cabe, pasa debajo */
 .saludo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.6rem 2rem;
     margin-bottom: 2rem;
 }
 
@@ -964,9 +1009,9 @@
 }
 
 .saludo-texto {
-    margin: 0.6rem 0 0;
+    margin: 0;
     color: var(--tinta-suave);
-    font-size: 1.0625rem;
+    font-size: var(--texto-m);
 }
 
 .indicadores {
@@ -984,6 +1029,7 @@
     border-top: 4px solid var(--tono, var(--linea));
     border-radius: var(--radio-m);
     background: var(--superficie);
+    box-shadow: var(--sombra);
 }
 
 .indicador-tarjeta.sin-datos {
@@ -1005,7 +1051,7 @@
 
 .indicador-tarjeta-titulo {
     margin: 0;
-    font-size: 1.0625rem;
+    font-size: var(--texto-m);
     font-weight: 700;
     line-height: 1.25;
 }
@@ -1013,12 +1059,12 @@
 .indicador-tarjeta-fecha {
     margin: 0.15rem 0 0;
     color: var(--tinta-tenue);
-    font-size: 0.875rem;
+    font-size: var(--texto-s);
 }
 
 .indicador-tarjeta-valor {
     margin: 0.25rem 0 0;
-    font-size: 2.75rem;
+    font-size: var(--texto-2xl);
     font-weight: 800;
     letter-spacing: -0.04em;
     line-height: 1;
@@ -1027,7 +1073,7 @@
 
 .indicador-tarjeta-unidad {
     color: var(--tinta-tenue);
-    font-size: 1rem;
+    font-size: var(--texto-m);
     font-weight: 600;
     letter-spacing: 0;
 }
@@ -1036,10 +1082,36 @@
     margin: 0.35rem 0 0.25rem;
 }
 
-.indicador-tarjeta-texto {
-    flex: 1;
+/* Nombre de la categoría en una línea chica debajo del número, en el color de la categoría.
+   Ocupa todo el ancho de la tarjeta, así que entra hasta "Hipertensión nivel 2" en celulares. */
+.indicador-tarjeta-lectura {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.indicador-tarjeta-lectura .indicador-tarjeta-valor {
     margin: 0;
-    color: var(--tinta-suave);
+}
+
+.indicador-tarjeta-categoria {
+    color: var(--tono-texto);
+    font-size: var(--texto-s);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.indicador-tarjeta-categoria.es-pendiente {
+    color: var(--tinta-tenue);
+    font-weight: 600;
+}
+
+/* Tarjeta sin mediciones: la misma estructura que las demás, en tonos apagados */
+.indicador-tarjeta.sin-datos .indicador-tarjeta-valor {
+    color: var(--linea-fuerte);
+}
+
+.indicador-tarjeta.sin-datos .banda-tramo {
+    opacity: 0.3;
 }
 
 .indicador-tarjeta .boton {
@@ -1070,6 +1142,11 @@
     border-top: 0;
 }
 
+/* La insignia siempre en la última columna, aunque la fila no tenga detalle */
+.medicion .insignia {
+    grid-column: -2;
+}
+
 .medicion.es-actual {
     border-radius: var(--radio-s);
     background: var(--azul-suave);
@@ -1081,7 +1158,8 @@
 
 .medicion-fecha {
     color: var(--tinta-tenue);
-    font-size: 0.875rem;
+    font-size: var(--texto-s);
+    white-space: nowrap;
 }
 
 .medicion-indicador {
@@ -1089,7 +1167,7 @@
     align-items: center;
     gap: 0.5rem;
     width: fit-content;
-    border-radius: 6px;
+    border-radius: var(--radio-s);
     color: var(--tinta);
     font-weight: 600;
     text-decoration: none;
@@ -1105,20 +1183,20 @@
 
 .medicion-lectura {
     white-space: nowrap;
-    font-size: 1.0625rem;
+    font-size: var(--texto-m);
     font-weight: 700;
     font-variant-numeric: tabular-nums;
 }
 
 .medicion-unidad {
     color: var(--tinta-tenue);
-    font-size: 0.8125rem;
+    font-size: var(--texto-xs);
     font-weight: 500;
 }
 
 .medicion-detalle {
     color: var(--tinta-suave);
-    font-size: 0.9375rem;
+    font-size: var(--texto-s);
 }
 
 .vacio {
@@ -1145,24 +1223,33 @@
    Páginas de indicador
    -------------------------------------------------------------------------- */
 
-.indicador {
+/* Las dos filas (formulario + resultado y tabla + historial) comparten columnas y altura */
+.indicador,
+.indicador-secundario {
     display: grid;
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
     gap: 1.25rem;
-    align-items: start;
+    align-items: stretch;
 }
 
-.formulario-tarjeta .boton {
-    justify-self: start;
+.indicador-secundario {
+    margin-top: 1.25rem;
+}
+
+/* Todos los botones de formulario ocupan el ancho de sus campos */
+.formulario .boton {
+    width: 100%;
 }
 
 .resultado {
     display: grid;
-    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+    /* Ilustración angosta: el texto cabe sin que la tarjeta supere la altura del formulario */
+    grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr);
     overflow: hidden;
     border: 1px solid var(--linea);
     border-radius: var(--radio-m);
     background: var(--superficie);
+    box-shadow: var(--sombra);
 }
 
 .resultado:focus {
@@ -1187,13 +1274,25 @@
     opacity: 0.9;
 }
 
+/* El espacio que sobra cuando la tarjeta toma la altura del formulario se reparte entre los elementos */
 .resultado-cuerpo {
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
+    justify-content: space-evenly;
+    gap: 0.85rem;
     padding: clamp(1.25rem, 3vw, 1.75rem);
 }
 
+/* Título del resultado con la fecha de la medición a la derecha */
+.resultado-cabecera {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
+}
+
+/* Sin resultado solo hay título y texto: van juntos y centrados, sin repartir el espacio */
 .resultado-vacio .resultado-cuerpo {
     justify-content: center;
 }
@@ -1201,13 +1300,13 @@
 .resultado-etiqueta {
     margin: 0;
     color: var(--tinta-suave);
-    font-size: 1rem;
+    font-size: var(--texto-m);
     font-weight: 600;
 }
 
 .resultado-vacio .resultado-etiqueta {
     color: var(--tinta);
-    font-size: 1.25rem;
+    font-size: var(--texto-l);
     font-weight: 700;
 }
 
@@ -1227,18 +1326,14 @@
 
 .resultado-unidad {
     color: var(--tinta-tenue);
-    font-size: 1.125rem;
+    font-size: var(--texto-l);
     font-weight: 600;
     letter-spacing: 0;
 }
 
 .resultado-frase {
     margin: 0;
-    font-size: 1.0625rem;
-}
-
-.resultado .banda {
-    margin: 0.4rem 0 0.2rem;
+    font-size: var(--texto-m);
 }
 
 .resultado-consejo {
@@ -1254,72 +1349,41 @@
     align-items: center;
     margin: 0;
     color: var(--tinta-tenue);
-    font-size: 0.875rem;
+    font-size: var(--texto-s);
 }
 
-.indicador-secundario {
-    display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-    gap: 1.25rem;
-    align-items: start;
-    margin-top: 1.25rem;
+/* El historial mide lo mismo que la tabla de referencia y hace scroll por dentro.
+   contain: size hace que no aporte altura a la fila; luego se estira a la de la tabla. */
+.historial {
+    display: flex;
+    flex-direction: column;
+    contain: size;
+}
+
+.historial .lista-mediciones {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    align-content: start;
+    padding-right: 0.35rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--linea-fuerte) transparent;
 }
 
 .historial .medicion {
     grid-template-columns: 8.5rem minmax(0, 1fr) minmax(0, 1fr) auto;
 }
 
-.referencia {
-    padding: 0;
-}
-
-.referencia-resumen {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: clamp(1.25rem, 3vw, 1.75rem);
-    border-radius: var(--radio-m);
-    list-style: none;
-    cursor: pointer;
-}
-
-.referencia-resumen::-webkit-details-marker {
-    display: none;
-}
-
-.referencia-resumen .seccion-titulo {
-    margin: 0;
-}
-
-.referencia-flecha {
-    color: var(--tinta-tenue);
-    transition: transform 0.2s ease;
-}
-
-.referencia[open] .referencia-flecha {
-    transform: rotate(180deg);
-}
-
-.referencia .tabla,
 .referencia-nota {
-    margin: 0 clamp(1.25rem, 3vw, 1.75rem);
-}
-
-.referencia-nota {
-    padding: 0.9rem 0 clamp(1.25rem, 3vw, 1.75rem);
+    margin: 0.9rem 0 0;
     color: var(--tinta-tenue);
-    font-size: 0.875rem;
-}
-
-.referencia .tabla:last-child {
-    margin-bottom: clamp(1.25rem, 3vw, 1.75rem);
+    font-size: var(--texto-s);
 }
 
 .tabla {
-    width: calc(100% - 2 * clamp(1.25rem, 3vw, 1.75rem));
+    width: 100%;
     border-collapse: collapse;
-    font-size: 0.9375rem;
+    font-size: var(--texto-s);
     font-variant-numeric: tabular-nums;
 }
 
@@ -1333,7 +1397,7 @@
 
 .tabla thead th {
     color: var(--tinta-tenue);
-    font-size: 0.8125rem;
+    font-size: var(--texto-xs);
     font-weight: 600;
 }
 
@@ -1369,7 +1433,7 @@
 
 .datos-cuenta dt {
     color: var(--tinta-tenue);
-    font-size: 0.875rem;
+    font-size: var(--texto-s);
 }
 
 .datos-cuenta dd {
@@ -1413,10 +1477,27 @@
    Pantallas medianas
    -------------------------------------------------------------------------- */
 
+@media (max-width: 1200px) {
+    .resultado {
+        grid-template-columns: minmax(0, 0.55fr) minmax(0, 1.45fr);
+    }
+
+    .resultado-cuerpo {
+        gap: 0.75rem;
+    }
+}
+
 @media (max-width: 1000px) {
     .indicador,
     .indicador-secundario {
         grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* En una columna, el historial va antes que la tabla de referencia, con su propia altura máxima */
+    .historial {
+        order: -1;
+        contain: none;
+        max-height: 26rem;
     }
 
     .indicadores {
@@ -1445,7 +1526,7 @@
 
     .portada-bajada {
         margin-top: 1rem;
-        font-size: 1.0625rem;
+        font-size: var(--texto-m);
     }
 
     .portada-acciones {
@@ -1497,7 +1578,7 @@
         gap: 0.2rem;
         height: auto;
         padding: 0.4rem 0.25rem;
-        font-size: 0.75rem;
+        font-size: var(--texto-xs);
     }
 
     .navegacion-enlace .icono {
@@ -1527,13 +1608,20 @@
         gap: 0.2rem 1rem;
     }
 
+    /* Fecha e insignia arriba; la lectura y el detalle debajo, a todo el ancho */
     .medicion-fecha {
-        grid-column: 1 / -1;
+        grid-column: 1;
+        grid-row: 1;
     }
 
     .medicion .insignia {
         grid-column: 2;
-        grid-row: 2;
+        grid-row: 1;
+    }
+
+    .medicion-lectura,
+    .medicion-detalle {
+        grid-column: 1 / -1;
     }
 
     .cuenta {
@@ -1549,11 +1637,11 @@
     }
 
     .cuerpo-landing .portada-titulo {
-        font-size: 1.875rem;
+        font-size: var(--texto-xl);
     }
 
     .cuerpo-landing .portada-bajada {
-        font-size: 1rem;
+        font-size: var(--texto-m);
     }
 }
 
@@ -1569,7 +1657,7 @@
     }
 
     .portada-titulo {
-        font-size: 2rem;
+        font-size: var(--texto-xl);
     }
 
     .landing-entrar {
@@ -1577,34 +1665,30 @@
     }
 
     .marca-nombre {
-        font-size: 1rem;
+        font-size: var(--texto-m);
     }
 
-    .opciones {
-        grid-template-columns: minmax(0, 1fr);
-    }
-
+    /* La insignia y la frase ya nombran la categoría; la leyenda no cabe sin cortarse */
     .banda-leyenda {
-        flex-wrap: wrap;
-        row-gap: 0.5rem;
+        display: none;
     }
 
-    .banda-categoria {
-        flex: 1 1 30%;
-    }
-
-    .portada-acciones .boton,
-    .formulario-tarjeta .boton,
-    .zona-peligro .boton {
+    .portada-acciones .boton {
         width: 100%;
+    }
+}
+
+/* Celulares muy angostos: el detalle de cada opción pasa debajo de su título */
+@media (max-width: 360px) {
+    .opcion-detalle {
+        grid-column: 2;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .boton,
     .navegacion-enlace,
-    .campo-entrada,
-    .referencia-flecha {
+    .campo-entrada {
         transition: none;
     }
 }

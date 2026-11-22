@@ -14,7 +14,6 @@ abrir_portal('Mi cuenta', 'cuenta', $usuario);
 ?>
         <header class="encabezado">
             <h1 class="titulo">Mi cuenta</h1>
-            <p class="bajada">Tus datos de acceso y tus mediciones guardadas.</p>
         </header>
 
         <?= aviso($flash['aviso'] ?? '') ?>
@@ -32,7 +31,7 @@ abrir_portal('Mi cuenta', 'cuenta', $usuario);
 
             <section class="tarjeta zona-peligro" aria-labelledby="titulo-eliminar">
                 <h2 class="seccion-titulo" id="titulo-eliminar">Eliminar mi cuenta</h2>
-                <p class="zona-peligro-texto">Se borran tu cuenta y tus <?= $total ?> <?= $total === 1 ? 'medición' : 'mediciones' ?>. No se puede deshacer.</p>
+                <p class="zona-peligro-texto"><?= texto_eliminar_cuenta($total) ?> No se puede deshacer.</p>
                 <form class="formulario" action="<?= url('vistas/php/cuenta_post.php') ?>" method="post">
                     <?= campo_csrf() ?>
                     <div class="campo">

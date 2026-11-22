@@ -32,3 +32,7 @@ CREATE TABLE IF NOT EXISTS mediciones (
     KEY mediciones_usuario (usuario_id, tipo, creado_en),
     CONSTRAINT mediciones_usuario_fk FOREIGN KEY (usuario_id) REFERENCES usuarios (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Usuario de prueba: prueba@consultorio.test / Prueba1234
+INSERT IGNORE INTO usuarios (nombre, correo, clave_hash, creado_en) VALUES
+    ('Paciente Prueba', 'prueba@consultorio.test', '$2y$10$kJZgOsJFy4neT2UJcxCDhuDfa0YqbFNQDQAmzw4nB/2/jvMLWash.', NOW());

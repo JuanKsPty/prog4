@@ -4,7 +4,7 @@
 function frase_resultado($medicion, $lectura, $categoria) {
     $nombre = '<strong>' . mostrar($categoria['nombre']) . '</strong>';
     if ($medicion['tipo'] === 'imc') {
-        return 'Tu IMC es <strong>' . $lectura['valor'] . '</strong> y se considera ' . $nombre . '.';
+        return 'Su IMC es <strong>' . $lectura['valor'] . '</strong> y se categoriza como ' . $nombre . '.';
     }
     if ($medicion['tipo'] === 'glucosa') {
         $cuando = $medicion['momento'] === 'ayunas' ? 'en ayunas' : 'después de comer';
@@ -34,13 +34,14 @@ function tarjeta_resultado($medicion) {
                     <?= ilustracion($categoria['imagen'], $iconos[$medicion['tipo']], 'Ilustración: ' . $categoria['nombre']) ?>
                 </div>
                 <div class="resultado-cuerpo">
-                    <h2 class="resultado-etiqueta" id="titulo-resultado"><?= etiqueta_resultado($medicion) ?></h2>
+                    <div class="resultado-cabecera">
+                        <h2 class="resultado-etiqueta" id="titulo-resultado"><?= etiqueta_resultado($medicion) ?></h2>
+                        <p class="resultado-meta"><?= icono('reloj', 'icono icono-pequeno') ?> <?= fecha_relativa($medicion['creado_en']) ?></p>
+                    </div>
                     <p class="resultado-valor"><?= $lectura['valor'] ?> <span class="resultado-unidad"><?= $lectura['unidad'] ?></span></p>
-                    <?= insignia($categoria) ?>
                     <p class="resultado-frase"><?= frase_resultado($medicion, $lectura, $categoria) ?></p>
                     <?= banda(categorias_de($medicion['tipo'], $medicion['momento'] ?? 'ayunas'), $medicion['categoria'], posicion_de_medicion($medicion)) ?>
                     <p class="resultado-consejo"><?= mostrar($categoria['consejo']) ?></p>
-                    <p class="resultado-meta"><?= icono('reloj', 'icono icono-pequeno') ?> Medido <?= mb_strtolower(fecha_relativa($medicion['creado_en'])) ?>, <?= mb_strtolower($lectura['detalle']) ?>.</p>
                 </div>
             </section>
     <?php
@@ -65,14 +66,14 @@ function resultado_vacio($tipo) {
 }
 
 function historial_indicador($tipo, $usuario_id, $actual_id) {
-    $mediciones = mediciones_recientes($usuario_id, 6, $tipo);
+    $mediciones = mediciones_recientes($usuario_id, 20, $tipo);
     $indicador = indicadores()[$tipo];
     ob_start();
     ?>
             <section class="tarjeta historial" aria-labelledby="titulo-historial">
                 <h2 class="seccion-titulo" id="titulo-historial">Tus mediciones de <?= $tipo === 'imc' ? 'IMC' : mb_strtolower($indicador['titulo']) ?></h2>
                 <?php if (!$mediciones): ?>
-                    <p class="vacio-texto">Todavía no tienes mediciones de este indicador. La primera que calcules aparecerá aquí.</p>
+                    <p class="vacio-texto">Sin mediciones todavía.</p>
                 <?php else: ?>
                     <ul class="lista-mediciones">
                         <?php foreach ($mediciones as $medicion):
@@ -82,7 +83,7 @@ function historial_indicador($tipo, $usuario_id, $actual_id) {
                             <li class="medicion<?= (int) $medicion['id'] === $actual_id ? ' es-actual' : '' ?>">
                                 <span class="medicion-fecha"><?= fecha_relativa($medicion['creado_en']) ?></span>
                                 <span class="medicion-lectura"><?= $lectura['valor'] ?> <span class="medicion-unidad"><?= $lectura['unidad'] ?></span></span>
-                                <span class="medicion-detalle"><?= mostrar($lectura['detalle']) ?></span>
+                                <?php if ($lectura['detalle'] !== ''): ?><span class="medicion-detalle"><?= mostrar($lectura['detalle']) ?></span><?php endif; ?>
                                 <?= insignia($categoria) ?>
                             </li>
                         <?php endforeach; ?>
@@ -96,11 +97,8 @@ function historial_indicador($tipo, $usuario_id, $actual_id) {
 function tabla_referencia($tipo) {
     ob_start();
     ?>
-            <details class="tarjeta referencia">
-                <summary class="referencia-resumen">
-                    <span class="seccion-titulo">Tabla de referencia</span>
-                    <?= icono('abajo', 'icono referencia-flecha') ?>
-                </summary>
+            <section class="tarjeta referencia" aria-labelledby="titulo-referencia">
+                <h2 class="seccion-titulo" id="titulo-referencia">Tabla de referencia</h2>
                 <?php if ($tipo === 'glucosa'):
                     $ayunas = categorias_glucosa('ayunas');
                     $despues = categorias_glucosa('posprandial');
@@ -110,7 +108,7 @@ function tabla_referencia($tipo) {
                         <tbody>
                             <?php foreach ($ayunas as $clave => $categoria): ?>
                                 <tr>
-                                    <th scope="row"><span class="punto <?= $categoria['tono'] ?>"></span><?= $categoria['nombre'] ?></th>
+                                    <th scope="row"><span class="punto <?= $categoria['tono'] ?>"></span><?= mostrar($categoria['nombre']) ?></th>
                                     <td><?= $categoria['rango'] ?> mg/dl</td>
                                     <td><?= $despues[$clave]['rango'] ?> mg/dl</td>
                                 </tr>
@@ -123,7 +121,7 @@ function tabla_referencia($tipo) {
                         <tbody>
                             <?php foreach (categorias_de($tipo) as $categoria): ?>
                                 <tr>
-                                    <th scope="row"><span class="punto <?= $categoria['tono'] ?>"></span><?= $categoria['nombre'] ?></th>
+                                    <th scope="row"><span class="punto <?= $categoria['tono'] ?>"></span><?= mostrar($categoria['nombre']) ?></th>
                                     <td><?= $categoria['rango'] ?></td>
                                 </tr>
                             <?php endforeach; ?>
@@ -133,15 +131,15 @@ function tabla_referencia($tipo) {
                 <?php if ($tipo === 'imc'): ?>
                     <p class="referencia-nota">Fórmula: IMC = peso (kg) ÷ estatura² (m).</p>
                 <?php elseif ($tipo === 'presion'): ?>
-                    <p class="referencia-nota">Basta con que uno de los dos números entre en una categoría más alta para clasificarte en ella.</p>
+                    <p class="referencia-nota">Cuenta la categoría más alta de los dos números.</p>
                 <?php endif; ?>
-            </details>
+            </section>
     <?php
     return ob_get_clean();
 }
 
 // Arma la página completa; $campos es el HTML de los campos propios de cada formulario
-function pagina_indicador($tipo, $usuario, $bajada, $campos, $boton) {
+function pagina_indicador($tipo, $usuario, $campos, $boton) {
     $indicador = indicadores()[$tipo];
     $flash = tomar_flash();
     $medicion = null;
@@ -152,8 +150,7 @@ function pagina_indicador($tipo, $usuario, $bajada, $campos, $boton) {
     abrir_portal($indicador['titulo'], $tipo, $usuario);
     ?>
         <header class="encabezado">
-            <h1 class="titulo"><?= $indicador['titulo'] ?></h1>
-            <p class="bajada"><?= $bajada ?></p>
+            <h1 class="titulo"><?= mostrar($indicador['titulo']) ?></h1>
         </header>
 
         <?= aviso($flash['aviso'] ?? '') ?>
@@ -172,8 +169,8 @@ function pagina_indicador($tipo, $usuario, $bajada, $campos, $boton) {
         </div>
 
         <div class="indicador-secundario">
-            <?= historial_indicador($tipo, $usuario['id'], $medicion ? (int) $medicion['id'] : 0) ?>
             <?= tabla_referencia($tipo) ?>
+            <?= historial_indicador($tipo, $usuario['id'], $medicion ? (int) $medicion['id'] : 0) ?>
         </div>
     <?php
     cerrar_portal();

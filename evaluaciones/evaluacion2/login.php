@@ -13,7 +13,6 @@ $valores = $flash['valores'] ?? [];
 abrir_acceso('Iniciar sesión', 'login');
 ?>
                 <h1 class="acceso-titulo">Inicia sesión</h1>
-                <p class="acceso-texto">Entra con el correo con el que creaste tu cuenta.</p>
 
                 <?= aviso($flash['exito'] ?? '', 'exito') ?>
                 <?= aviso($flash['aviso'] ?? '') ?>

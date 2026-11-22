@@ -9,9 +9,10 @@ const CARPETA_IMAGENES = __DIR__ . '/../../img/';
    Lectura y salida de datos
    -------------------------------------------------------------------------- */
 
+// Texto del formulario sin espacios a los lados; si no viene en UTF-8 se trata como vacío
 function leer($campo) {
     $valor = $_POST[$campo] ?? '';
-    return is_string($valor) ? trim($valor) : '';
+    return is_string($valor) && mb_check_encoding($valor, 'UTF-8') ? trim($valor) : '';
 }
 
 // Lee un número del formulario; acepta coma o punto decimal. Devuelve null si no es un número
@@ -22,7 +23,7 @@ function leer_numero($campo) {
 
 // htmlspecialchars evita que lo escrito en el formulario se ejecute como HTML
 function mostrar($valor) {
-    return htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars((string) $valor, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
 function formato_numero($numero, $decimales = 2) {
@@ -49,42 +50,56 @@ function categorias_imc() {
             'rango' => 'Menos de 18.5',
             'tono' => 'tono-celeste',
             'imagen' => 'imc-bajo',
-            'consejo' => 'Tu peso está por debajo de lo recomendado. Consulta con un nutricionista para planificar una alimentación que te ayude a ganar peso de forma saludable.',
+            'consejo' => 'Consulta con un nutricionista para ganar peso de forma saludable.',
         ],
         'normal' => [
             'nombre' => 'Normal',
             'rango' => '18.5 a 24.9',
             'tono' => 'tono-verde',
             'imagen' => 'imc-normal',
-            'consejo' => '¡Muy bien! Tu peso es adecuado para tu estatura. Mantén una dieta equilibrada y actividad física regular.',
+            'consejo' => 'Mantén una dieta equilibrada y actividad física regular.',
         ],
         'sobrepeso' => [
             'nombre' => 'Sobrepeso',
             'rango' => '25 a 29.9',
             'tono' => 'tono-amarillo',
             'imagen' => 'imc-sobrepeso',
-            'consejo' => 'Tienes algo de peso extra. Aumentar la actividad física y reducir azúcares y harinas refinadas puede ayudarte.',
+            'consejo' => 'Más actividad física y menos azúcares y harinas refinadas te ayudarán.',
         ],
         'obesidad' => [
             'nombre' => 'Obesidad',
             'rango' => '30 a 39.9',
             'tono' => 'tono-naranja',
             'imagen' => 'imc-obesidad',
-            'consejo' => 'Tu IMC indica obesidad, lo que aumenta el riesgo de diabetes e hipertensión. Te recomendamos una cita con tu médico.',
+            'consejo' => 'Aumenta el riesgo de diabetes e hipertensión; agenda una cita con tu médico.',
         ],
         'extrema' => [
             'nombre' => 'Obesidad extrema',
             'rango' => '40 o más',
             'tono' => 'tono-rojo',
             'imagen' => 'imc-extrema',
-            'consejo' => 'Tu IMC está en un nivel de riesgo alto para tu salud. Agenda una consulta médica lo antes posible.',
+            'consejo' => 'Es un nivel de riesgo alto: agenda una consulta médica lo antes posible.',
         ],
     ];
 }
 
-// IMC = peso (kg) / estatura² (m)
+// IMC = peso (kg) / estatura² (m), con 2 decimales: se clasifica el mismo valor que se muestra
 function calcular_imc($peso, $estatura) {
-    return $peso / ($estatura * $estatura);
+    return round($peso / ($estatura * $estatura), 2);
+}
+
+// Devuelve los errores del formulario de IMC (vacío si los datos son válidos)
+function validar_imc($peso, $estatura) {
+    $errores = [];
+    if ($peso === null || $peso < 1 || $peso > 500) {
+        $errores['peso'] = 'Escribe tu peso en kilogramos, entre 1 y 500.';
+    }
+    if ($estatura === null || $estatura < 0.5 || $estatura > 2.5) {
+        $errores['estatura'] = $estatura !== null && $estatura >= 50 && $estatura <= 250
+            ? 'Parece que escribiste centímetros. Escríbela en metros, por ejemplo ' . formato_numero($estatura / 100) . '.'
+            : 'Escribe tu estatura en metros, entre 0.50 y 2.50.';
+    }
+    return $errores;
 }
 
 function clasificar_imc($imc) {
@@ -116,37 +131,38 @@ function momentos_glucosa() {
 
 function categorias_glucosa($momento) {
     $rangos = $momento === 'ayunas'
-        ? ['bajo' => 'Menos de 70', 'normal' => '70 a 100', 'pre' => '101 a 125', 'diabetes' => '126 o más']
+        ? ['bajo' => 'Menos de 70', 'normal' => '70 a 100', 'pre' => '100 a 125', 'diabetes' => '126 o más']
         : ['bajo' => 'Menos de 70', 'normal' => 'Menos de 140', 'pre' => '140 a 199', 'diabetes' => '200 o más'];
 
     return [
         'bajo' => [
             'nombre' => 'Glucosa baja',
+            'corto' => 'Baja',
             'rango' => $rangos['bajo'],
             'tono' => 'tono-celeste',
             'imagen' => 'glucosa-baja',
-            'consejo' => 'Tu glucosa está por debajo de lo normal (hipoglucemia). Come algo con azúcar, como un jugo, y vuelve a medirte en 15 minutos. Si se repite, consulta a tu médico.',
+            'consejo' => 'Toma algo con azúcar y vuelve a medirte en 15 minutos; si se repite, consulta a tu médico.',
         ],
         'normal' => [
             'nombre' => 'Sin diabetes',
             'rango' => $rangos['normal'],
             'tono' => 'tono-teal',
             'imagen' => 'glucosa-normal',
-            'consejo' => 'Tu nivel de glucosa es normal. Sigue con tus hábitos saludables y haz controles periódicos.',
+            'consejo' => 'Sigue con tus hábitos saludables y haz controles periódicos.',
         ],
         'pre' => [
             'nombre' => 'Prediabetes',
             'rango' => $rangos['pre'],
             'tono' => 'tono-ambar',
             'imagen' => 'glucosa-prediabetes',
-            'consejo' => 'Tu glucosa está elevada. Con cambios en la alimentación y más actividad física se puede evitar la diabetes. Coméntalo con tu médico.',
+            'consejo' => 'Comer mejor y moverte más puede evitar la diabetes; coméntalo con tu médico.',
         ],
         'diabetes' => [
             'nombre' => 'Diabetes',
             'rango' => $rangos['diabetes'],
             'tono' => 'tono-vino',
             'imagen' => 'glucosa-diabetes',
-            'consejo' => 'Tu lectura está en el rango de diabetes. Agenda una cita para confirmar el diagnóstico con exámenes de laboratorio.',
+            'consejo' => 'Agenda una cita para confirmarlo con exámenes de laboratorio.',
         ],
     ];
 }
@@ -160,7 +176,7 @@ function clasificar_glucosa($lectura, $momento) {
         if ($lectura <= 100) {
             return 'normal';
         }
-        if ($lectura <= 125) {
+        if ($lectura < 126) {
             return 'pre';
         }
         return 'diabetes';
@@ -175,6 +191,17 @@ function clasificar_glucosa($lectura, $momento) {
     return 'diabetes';
 }
 
+function validar_glucosa($lectura, $momento) {
+    $errores = [];
+    if ($lectura === null || $lectura < 10 || $lectura > 1000) {
+        $errores['lectura'] = 'Escribe la lectura del glucómetro en mg/dl, entre 10 y 1000.';
+    }
+    if (!isset(momentos_glucosa()[$momento])) {
+        $errores['momento'] = 'Indica si tomaste la lectura en ayunas o después de comer.';
+    }
+    return $errores;
+}
+
 /* --------------------------------------------------------------------------
    Presión arterial
    -------------------------------------------------------------------------- */
@@ -186,35 +213,38 @@ function categorias_presion() {
             'rango' => 'Menos de 120 / 80',
             'tono' => 'tono-lima',
             'imagen' => 'presion-normal',
-            'consejo' => 'Tu presión arterial es normal. Sigue con una dieta baja en sal y actividad física regular.',
+            'consejo' => 'Sigue con una dieta baja en sal y actividad física regular.',
         ],
         'elevada' => [
             'nombre' => 'Elevada',
             'rango' => '120-129 / menos de 80',
             'tono' => 'tono-limon',
             'imagen' => 'presion-elevada',
-            'consejo' => 'Tu presión está un poco elevada. Reduce la sal, el alcohol y el estrés, y vuelve a medirla en unos días.',
+            'consejo' => 'Reduce la sal, el alcohol y el estrés, y vuelve a medirla en unos días.',
         ],
         'nivel1' => [
             'nombre' => 'Hipertensión nivel 1',
+            'corto' => 'Nivel 1',
             'rango' => '130-139 / 80-89',
             'tono' => 'tono-ocre',
             'imagen' => 'presion-nivel1',
-            'consejo' => 'Tienes presión arterial alta (nivel 1). Consulta con tu médico; puede recomendarte cambios de hábitos o tratamiento.',
+            'consejo' => 'Consulta con tu médico; puede indicarte cambios de hábitos o tratamiento.',
         ],
         'nivel2' => [
             'nombre' => 'Hipertensión nivel 2',
+            'corto' => 'Nivel 2',
             'rango' => '140 o más / 90 o más',
             'tono' => 'tono-ladrillo',
             'imagen' => 'presion-nivel2',
-            'consejo' => 'Tienes presión arterial alta (nivel 2). Es importante que te vea un médico pronto para iniciar tratamiento.',
+            'consejo' => 'Necesitas que te vea un médico pronto para iniciar tratamiento.',
         ],
         'crisis' => [
-            'nombre' => 'Crisis de hipertensión',
+            'nombre' => 'Crisis hipertensiva',
+            'corto' => 'Crisis',
             'rango' => 'Más de 180 / más de 120',
             'tono' => 'tono-granate',
             'imagen' => 'presion-crisis',
-            'consejo' => 'Consulta a tu médico de inmediato. Si tienes dolor de pecho, falta de aire o visión borrosa, acude a urgencias.',
+            'consejo' => 'Consulta a tu médico de inmediato y, si tienes dolor de pecho o falta de aire, ve a urgencias.',
         ],
     ];
 }
@@ -236,6 +266,20 @@ function clasificar_presion($sistolica, $diastolica) {
     return 'normal';
 }
 
+function validar_presion($sistolica, $diastolica) {
+    $errores = [];
+    if ($sistolica === null || $sistolica < 50 || $sistolica > 300) {
+        $errores['sistolica'] = 'Escribe la sistólica (el número de arriba), entre 50 y 300.';
+    }
+    if ($diastolica === null || $diastolica < 30 || $diastolica > 200) {
+        $errores['diastolica'] = 'Escribe la diastólica (el número de abajo), entre 30 y 200.';
+    }
+    if (!$errores && $sistolica <= $diastolica) {
+        $errores['sistolica'] = 'La sistólica debe ser mayor que la diastólica. Revisa que no estén invertidas.';
+    }
+    return $errores;
+}
+
 
 /* --------------------------------------------------------------------------
    Indicadores y bandas de color
@@ -248,21 +292,18 @@ function indicadores() {
             'titulo' => 'Índice de masa corporal',
             'pagina' => 'vistas/imc.php',
             'imagen' => 'menu-imc',
-            'datos' => 'Peso y estatura',
         ],
         'glucosa' => [
             'nombre' => 'Glucosa',
             'titulo' => 'Glucosa en sangre',
             'pagina' => 'vistas/glucosa.php',
             'imagen' => 'menu-glucosa',
-            'datos' => 'Lectura del glucómetro, en ayunas o después de comer',
         ],
         'presion' => [
             'nombre' => 'Presión',
             'titulo' => 'Presión arterial',
             'pagina' => 'vistas/presion.php',
             'imagen' => 'menu-presion',
-            'datos' => 'Presión sistólica y diastólica',
         ],
     ];
 }
@@ -406,7 +447,7 @@ function lectura_de_medicion($medicion) {
     return [
         'valor' => (int) $medicion['sistolica'] . '/' . (int) $medicion['diastolica'],
         'unidad' => 'mm Hg',
-        'detalle' => 'Sistólica / diastólica',
+        'detalle' => '',
         'numero' => null,
     ];
 }
@@ -441,6 +482,17 @@ function fecha_relativa($fecha) {
     return $momento->format('Y') === date('Y') ? $texto : $texto . ' ' . $momento->format('Y');
 }
 
+// Qué se borra al eliminar la cuenta, sin frases como "tus 0 mediciones"
+function texto_eliminar_cuenta($total) {
+    if ($total === 0) {
+        return 'Se borra tu cuenta.';
+    }
+    if ($total === 1) {
+        return 'Se borran tu cuenta y tu única medición.';
+    }
+    return "Se borran tu cuenta y tus $total mediciones.";
+}
+
 function fecha_de_hoy() {
     $dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
     $meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
@@ -472,15 +524,18 @@ function ilustracion($imagen, $icono, $texto_alternativo = '', $clase = '') {
     return '<span class="arte-respaldo ' . $clase . '" aria-hidden="true">' . icono($icono, '') . '</span>';
 }
 
-// Banda de colores con todas las categorías y un marcador en la del paciente
+// Banda de colores con todas las categorías y un marcador en la del paciente.
+// Con $con_leyenda los nombres de las categorías van debajo (página de resultado).
+// Al pasar el mouse por un tramo se ve su nombre y su rango.
 function banda($categorias, $actual, $posicion, $con_leyenda = true) {
     $html = '<div class="banda">';
     $html .= '<div class="banda-pista">';
     foreach ($categorias as $clave => $categoria) {
-        $html .= '<span class="banda-tramo ' . $categoria['tono'] . ($clave === $actual ? ' es-actual' : '') . '"></span>';
+        $html .= '<span class="banda-tramo ' . $categoria['tono'] . ($clave === $actual ? ' es-actual' : '') . '"'
+            . ' title="' . mostrar($categoria['nombre'] . ': ' . $categoria['rango']) . '"></span>';
     }
     if ($actual !== null) {
-        $html .= '<span class="banda-marcador" style="left: ' . $posicion . '%"></span>';
+        $html .= '<span class="banda-marcador" style="--posicion: ' . $posicion . '%"></span>';
     }
     $html .= '</div>';
 
@@ -489,8 +544,7 @@ function banda($categorias, $actual, $posicion, $con_leyenda = true) {
         foreach ($categorias as $clave => $categoria) {
             $es_actual = $clave === $actual;
             $html .= '<li class="banda-categoria ' . $categoria['tono'] . ($es_actual ? ' es-actual' : '') . '"' . ($es_actual ? ' aria-current="true"' : '') . '>';
-            $html .= '<span class="banda-nombre">' . mostrar($categoria['nombre']) . '</span>';
-            $html .= '<span class="banda-rango">' . mostrar($categoria['rango']) . '</span>';
+            $html .= '<span class="banda-nombre">' . mostrar($categoria['corto'] ?? $categoria['nombre']) . '</span>';
             $html .= '</li>';
         }
         $html .= '</ol>';

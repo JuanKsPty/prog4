@@ -11,5 +11,14 @@ function config_bd() {
         'base' => getenv('DB_NAME') ?: 'consultorio_abc',
         'usuario' => getenv('DB_USER') ?: 'root',
         'clave' => $clave === false ? '' : $clave,
+        // El usuario de prueba solo se crea en local (XAMPP), nunca en el servidor publicado
+        'usuario_prueba' => getenv('DB_HOST') === false,
     ];
 }
+
+// Cuenta para que el profesor pueda entrar sin registrarse. Contraseña: Prueba1234
+const USUARIO_PRUEBA = [
+    'nombre' => 'Paciente Prueba',
+    'correo' => 'prueba@consultorio.test',
+    'clave_hash' => '$2y$10$kJZgOsJFy4neT2UJcxCDhuDfa0YqbFNQDQAmzw4nB/2/jvMLWash.',
+];

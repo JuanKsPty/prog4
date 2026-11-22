@@ -54,10 +54,14 @@ function usuario_actual() {
     return ['id' => (int) $_SESSION['usuario_id'], 'nombre' => $_SESSION['usuario_nombre']];
 }
 
-// Devuelve el usuario conectado; si no hay sesión, lo manda a iniciar sesión
+// Devuelve el usuario conectado; si no hay sesión o la cuenta ya no existe, lo manda a iniciar sesión
 function requerir_sesion() {
     $usuario = usuario_actual();
     if ($usuario === null) {
+        redirigir('login.php');
+    }
+    if (buscar_usuario($usuario['id']) === null) {
+        cerrar_sesion();
         redirigir('login.php');
     }
     return $usuario;
