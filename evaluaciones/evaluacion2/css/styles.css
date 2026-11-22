@@ -1086,6 +1086,21 @@
     opacity: 0.3;
 }
 
+/* "—" y "Pendiente" en una línea; la barra baja para quedar alineada con las otras tarjetas */
+.indicador-tarjeta-pendiente {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.indicador-tarjeta.sin-datos .banda {
+    margin-top: auto;
+}
+
+.indicador-tarjeta.sin-datos .boton {
+    margin-top: 0;
+}
+
 .insignia-vacia {
     --tono: var(--linea-fuerte);
     --tono-suave: var(--fondo);
