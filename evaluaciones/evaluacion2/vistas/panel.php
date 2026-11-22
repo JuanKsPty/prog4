@@ -53,7 +53,10 @@ abrir_portal('Inicio', 'inicio', $usuario);
         </section>
 
         <section class="tarjeta recientes" aria-labelledby="titulo-recientes">
-            <h2 class="seccion-titulo" id="titulo-recientes">Mediciones recientes</h2>
+            <div class="recientes-cabecera">
+                <h2 class="seccion-titulo" id="titulo-recientes">Mediciones recientes</h2>
+                <p class="nota-medica"><?= icono('info') ?> Estos resultados son orientativos y no reemplazan una consulta médica.</p>
+            </div>
             <?php if (!$recientes): ?>
                 <div class="vacio">
                     <?= icono('reloj', 'icono vacio-icono') ?>
@@ -77,6 +80,5 @@ abrir_portal('Inicio', 'inicio', $usuario);
             <?php endif; ?>
         </section>
 
-        <p class="nota-medica"><?= icono('info') ?> Estos resultados son orientativos y no reemplazan una consulta médica.</p>
 <?php
 cerrar_portal();

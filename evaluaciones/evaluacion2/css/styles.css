@@ -942,11 +942,25 @@
     letter-spacing: -0.01em;
 }
 
+/* Título de "Mediciones recientes" con la nota médica a la derecha; si no cabe, pasa debajo */
+.recientes-cabecera {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.4rem 1.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.recientes-cabecera .seccion-titulo {
+    margin: 0;
+}
+
 .nota-medica {
     display: flex;
-    gap: 0.6rem;
+    gap: 0.4rem;
     align-items: center;
-    margin: 2rem 0 0;
+    margin: 0;
     color: var(--tinta-tenue);
     font-size: var(--texto-s);
 }
