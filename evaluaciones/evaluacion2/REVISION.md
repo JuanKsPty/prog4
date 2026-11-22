@@ -103,3 +103,25 @@ El sitio cumple los 8 requisitos en lo esencial: HTML5 semántico, CSS por clase
 | "1,70" con coma | 1.70 | 1.70 ✔ |
 | glucosa sin momento | Error | Error ✔ |
 | 80/120 (invertida) | Error | Error ✔ |
+
+## 5. Estado de las correcciones (rama `revision-evaluacion2`)
+
+| # | Hallazgo | Estado |
+|---|---|---|
+| 1 | Frase del IMC | Aplicado: "Su IMC es ##.## y se categoriza como X" |
+| 2 | IMC mostrado vs. categoría | Aplicado: `calcular_imc()` redondea a 2 decimales antes de clasificar |
+| 3 | Glucosa en ayunas 125.5 | Aplicado: prediabetes hasta `< 126` |
+| 4 | Texto "101 a 125" | Aplicado: "100 a 125" |
+| 5 | Validación en funciones | Aplicado: `validar_imc`, `validar_glucosa`, `validar_presion` |
+| 6 | README para XAMPP | Aplicado: `README.md` |
+| 7 | Dockerfile en la entrega | Documentado en el README (se excluye del .zip; se conserva para el despliegue) |
+| 8 | "Crisis hipertensiva" | Aplicado |
+| 9 | Glucosa < 70 | Documentado en el README como decisión del grupo |
+| 10 | Estilo inline del marcador | Aplicado: `--posicion` + `left: var(--posicion)` en el CSS |
+| 11 | Inline en la página de error de BD | Sin cambiar: cambiaría el aspecto de esa página |
+| 12 | Aviso de centímetros | Aplicado: sin `max` en el campo de estatura |
+| 13 | Usuario borrado con sesión abierta | Aplicado: `requerir_sesion()` cierra la sesión |
+| 14 | Rótulos cortos de la barra | Sin cambiar: alteraría el diseño de la barra |
+| 15 | `mostrar()` en textos internos | Aplicado |
+
+`php -l`: 22 archivos .php sin errores de sintaxis (PHP 8.3.36 de XAMPP).
