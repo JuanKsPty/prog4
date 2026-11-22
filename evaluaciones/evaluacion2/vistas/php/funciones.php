@@ -116,7 +116,7 @@ function momentos_glucosa() {
 
 function categorias_glucosa($momento) {
     $rangos = $momento === 'ayunas'
-        ? ['bajo' => 'Menos de 70', 'normal' => '70 a 100', 'pre' => '101 a 125', 'diabetes' => '126 o más']
+        ? ['bajo' => 'Menos de 70', 'normal' => '70 a 100', 'pre' => '100 a 125', 'diabetes' => '126 o más']
         : ['bajo' => 'Menos de 70', 'normal' => 'Menos de 140', 'pre' => '140 a 199', 'diabetes' => '200 o más'];
 
     return [
@@ -160,7 +160,7 @@ function clasificar_glucosa($lectura, $momento) {
         if ($lectura <= 100) {
             return 'normal';
         }
-        if ($lectura <= 125) {
+        if ($lectura < 126) {
             return 'pre';
         }
         return 'diabetes';
