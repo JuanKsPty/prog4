@@ -40,15 +40,11 @@ abrir_portal('Inicio', 'inicio', $usuario);
                             $categoria = categoria_de_medicion($medicion);
                         ?>
                             <p class="indicador-tarjeta-valor"><?= $lectura['valor'] ?> <span class="indicador-tarjeta-unidad"><?= $lectura['unidad'] ?></span></p>
-                            <?= insignia($categoria) ?>
-                            <?= banda(categorias_de($tipo, $medicion['momento'] ?? 'ayunas'), $medicion['categoria'], posicion_de_medicion($medicion), false) ?>
+                            <?= banda(categorias_de($tipo, $medicion['momento'] ?? 'ayunas'), $medicion['categoria'], posicion_de_medicion($medicion), 'etiqueta') ?>
                             <a class="boton boton-secundario" href="<?= url($indicador['pagina']) ?>">Medir de nuevo</a>
                         <?php else: ?>
-                            <div class="indicador-tarjeta-pendiente">
-                                <p class="indicador-tarjeta-valor">—</p>
-                                <span class="insignia insignia-vacia">Pendiente</span>
-                            </div>
-                            <?= banda(categorias_de($tipo), null, 0, false) ?>
+                            <p class="indicador-tarjeta-valor">—</p>
+                            <?= banda(categorias_de($tipo), null, 0, 'etiqueta') ?>
                             <a class="boton boton-primario" href="<?= url($indicador['pagina']) ?>">Medir <?= $tipo === 'imc' ? 'mi IMC' : 'mi ' . mb_strtolower($indicador['nombre']) ?></a>
                         <?php endif; ?>
                     </article>

@@ -524,19 +524,24 @@ function ilustracion($imagen, $icono, $texto_alternativo = '', $clase = '') {
     return '<span class="arte-respaldo ' . $clase . '" aria-hidden="true">' . icono($icono, '') . '</span>';
 }
 
-// Banda de colores con todas las categorías y un marcador en la del paciente
-function banda($categorias, $actual, $posicion, $con_leyenda = true) {
+// Banda de colores con todas las categorías y un marcador en la del paciente.
+// $modo 'leyenda': los nombres de todas las categorías debajo (página de resultado).
+// $modo 'etiqueta': solo el nombre de la categoría actual, debajo de su tramo (tarjetas del panel);
+//                   sin medición dice "Pendiente".
+// Al pasar el mouse por un tramo se ve su nombre y su rango.
+function banda($categorias, $actual, $posicion, $modo = 'leyenda') {
     $html = '<div class="banda">';
     $html .= '<div class="banda-pista">';
     foreach ($categorias as $clave => $categoria) {
-        $html .= '<span class="banda-tramo ' . $categoria['tono'] . ($clave === $actual ? ' es-actual' : '') . '"></span>';
+        $html .= '<span class="banda-tramo ' . $categoria['tono'] . ($clave === $actual ? ' es-actual' : '') . '"'
+            . ' title="' . mostrar($categoria['nombre'] . ': ' . $categoria['rango']) . '"></span>';
     }
     if ($actual !== null) {
         $html .= '<span class="banda-marcador" style="--posicion: ' . $posicion . '%"></span>';
     }
     $html .= '</div>';
 
-    if ($con_leyenda) {
+    if ($modo === 'leyenda') {
         $html .= '<ol class="banda-leyenda">';
         foreach ($categorias as $clave => $categoria) {
             $es_actual = $clave === $actual;
@@ -545,6 +550,20 @@ function banda($categorias, $actual, $posicion, $con_leyenda = true) {
             $html .= '</li>';
         }
         $html .= '</ol>';
+    } elseif ($modo === 'etiqueta') {
+        $html .= '<div class="banda-etiquetas">';
+        $primera = true;
+        foreach ($categorias as $clave => $categoria) {
+            if ($clave === $actual) {
+                $html .= '<span class="banda-etiqueta ' . $categoria['tono'] . '">' . mostrar($categoria['nombre']) . '</span>';
+            } elseif ($actual === null && $primera) {
+                $html .= '<span class="banda-etiqueta banda-etiqueta-pendiente">Pendiente</span>';
+            } else {
+                $html .= '<span class="banda-etiqueta"></span>';
+            }
+            $primera = false;
+        }
+        $html .= '</div>';
     }
 
     return $html . '</div>';
