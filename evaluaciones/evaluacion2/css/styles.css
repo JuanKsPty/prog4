@@ -1261,6 +1261,11 @@
     gap: 0.25rem 1rem;
 }
 
+/* Sin resultado solo hay título y texto: van juntos y centrados, sin repartir el espacio */
+.resultado-vacio .resultado-cuerpo {
+    justify-content: center;
+}
+
 .resultado-etiqueta {
     margin: 0;
     color: var(--tinta-suave);
