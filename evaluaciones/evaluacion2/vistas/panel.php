@@ -39,12 +39,18 @@ abrir_portal('Inicio', 'inicio', $usuario);
                             $lectura = lectura_de_medicion($medicion);
                             $categoria = categoria_de_medicion($medicion);
                         ?>
-                            <p class="indicador-tarjeta-valor"><?= $lectura['valor'] ?> <span class="indicador-tarjeta-unidad"><?= $lectura['unidad'] ?></span></p>
-                            <?= banda(categorias_de($tipo, $medicion['momento'] ?? 'ayunas'), $medicion['categoria'], posicion_de_medicion($medicion), 'etiqueta') ?>
+                            <div class="indicador-tarjeta-lectura">
+                                <span class="indicador-tarjeta-categoria <?= $categoria['tono'] ?>"><?= mostrar($categoria['nombre']) ?></span>
+                                <p class="indicador-tarjeta-valor"><?= $lectura['valor'] ?> <span class="indicador-tarjeta-unidad"><?= $lectura['unidad'] ?></span></p>
+                            </div>
+                            <?= banda(categorias_de($tipo, $medicion['momento'] ?? 'ayunas'), $medicion['categoria'], posicion_de_medicion($medicion), false) ?>
                             <a class="boton boton-secundario" href="<?= url($indicador['pagina']) ?>">Medir de nuevo</a>
                         <?php else: ?>
-                            <p class="indicador-tarjeta-valor">—</p>
-                            <?= banda(categorias_de($tipo), null, 0, 'etiqueta') ?>
+                            <div class="indicador-tarjeta-lectura">
+                                <span class="indicador-tarjeta-categoria es-pendiente">Pendiente</span>
+                                <p class="indicador-tarjeta-valor">—</p>
+                            </div>
+                            <?= banda(categorias_de($tipo), null, 0, false) ?>
                             <a class="boton boton-primario" href="<?= url($indicador['pagina']) ?>">Medir <?= $tipo === 'imc' ? 'mi IMC' : 'mi ' . mb_strtolower($indicador['nombre']) ?></a>
                         <?php endif; ?>
                     </article>

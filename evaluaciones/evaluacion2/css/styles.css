@@ -522,41 +522,6 @@
     cursor: help;
 }
 
-/* Nombre de la categoría actual debajo de su tramo (tarjetas del panel).
-   Cada celda mide lo mismo que su tramo; el texto se centra y puede salirse de la celda
-   hacia las vecinas, que van vacías. En los extremos se alinea al borde para no salirse. */
-.banda-etiquetas {
-    display: flex;
-    gap: 0.5rem;
-    min-height: 1.25rem;
-    margin-top: 0.55rem;
-    font-size: var(--texto-s);
-    font-weight: 700;
-    line-height: 1.25;
-}
-
-.banda-etiqueta {
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    min-width: 0;
-    color: var(--tono-texto);
-    white-space: nowrap;
-}
-
-.banda-etiqueta:first-child {
-    justify-content: flex-start;
-}
-
-.banda-etiqueta:last-child {
-    justify-content: flex-end;
-}
-
-.banda-etiqueta-pendiente {
-    color: var(--tinta-tenue);
-    font-weight: 600;
-}
-
 .banda-leyenda {
     display: flex;
     gap: 0.5rem;
@@ -1115,6 +1080,29 @@
 
 .indicador-tarjeta .banda {
     margin: 0.35rem 0 0.25rem;
+}
+
+/* Nombre de la categoría en una línea chica arriba del número, en el color de la categoría.
+   Ocupa todo el ancho de la tarjeta, así que entra hasta "Hipertensión nivel 2" en celulares. */
+.indicador-tarjeta-lectura {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.indicador-tarjeta-lectura .indicador-tarjeta-valor {
+    margin: 0;
+}
+
+.indicador-tarjeta-categoria {
+    color: var(--tono-texto);
+    font-size: var(--texto-s);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.indicador-tarjeta-categoria.es-pendiente {
+    color: var(--tinta-tenue);
+    font-weight: 600;
 }
 
 /* Tarjeta sin mediciones: la misma estructura que las demás, en tonos apagados */
@@ -1694,10 +1682,6 @@
 @media (max-width: 360px) {
     .opcion-detalle {
         grid-column: 2;
-    }
-
-    .banda-etiquetas {
-        font-size: var(--texto-xs);
     }
 }
 
