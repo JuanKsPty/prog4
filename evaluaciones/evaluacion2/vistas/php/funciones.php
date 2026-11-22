@@ -292,24 +292,18 @@ function indicadores() {
             'titulo' => 'Índice de masa corporal',
             'pagina' => 'vistas/imc.php',
             'imagen' => 'menu-imc',
-            'datos' => 'Peso y estatura',
-            'unidad' => 'kg/m²',
         ],
         'glucosa' => [
             'nombre' => 'Glucosa',
             'titulo' => 'Glucosa en sangre',
             'pagina' => 'vistas/glucosa.php',
             'imagen' => 'menu-glucosa',
-            'datos' => 'Lectura del glucómetro',
-            'unidad' => 'mg/dl',
         ],
         'presion' => [
             'nombre' => 'Presión',
             'titulo' => 'Presión arterial',
             'pagina' => 'vistas/presion.php',
             'imagen' => 'menu-presion',
-            'datos' => 'Sistólica y diastólica',
-            'unidad' => 'mm Hg',
         ],
     ];
 }
