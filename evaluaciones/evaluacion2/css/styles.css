@@ -1245,6 +1245,11 @@
     font-weight: 700;
 }
 
+.resultado-texto {
+    margin: 0;
+    color: var(--tinta-suave);
+}
+
 .resultado-valor {
     margin: 0;
     font-size: clamp(3rem, 6vw, 4.25rem);

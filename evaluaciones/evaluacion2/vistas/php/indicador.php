@@ -57,6 +57,7 @@ function resultado_vacio($tipo) {
                 </div>
                 <div class="resultado-cuerpo">
                     <h2 class="resultado-etiqueta" id="titulo-resultado">Tu resultado aparecerá aquí</h2>
+                    <p class="resultado-texto">Completa el formulario y verás tu diagnóstico, en qué parte de la escala estás y un consejo. Cada medición se guarda en tu historial.</p>
                 </div>
             </section>
     <?php
