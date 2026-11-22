@@ -1191,7 +1191,8 @@
 
 .resultado {
     display: grid;
-    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+    /* Ilustración angosta: el texto cabe sin que la tarjeta supere la altura del formulario */
+    grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr);
     overflow: hidden;
     border: 1px solid var(--linea);
     border-radius: var(--radio-m);
@@ -1224,7 +1225,7 @@
 .resultado-cuerpo {
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
+    gap: 0.75rem;
     padding: clamp(1.25rem, 3vw, 1.75rem);
 }
 
@@ -1278,10 +1279,6 @@
 .resultado-frase {
     margin: 0;
     font-size: var(--texto-m);
-}
-
-.resultado .banda {
-    margin: 0.4rem 0 0.2rem;
 }
 
 .resultado-consejo {
@@ -1406,6 +1403,12 @@
 /* --------------------------------------------------------------------------
    Pantallas medianas
    -------------------------------------------------------------------------- */
+
+@media (max-width: 1200px) {
+    .resultado {
+        grid-template-columns: minmax(0, 0.55fr) minmax(0, 1.45fr);
+    }
+}
 
 @media (max-width: 1000px) {
     .indicador,

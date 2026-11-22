@@ -39,7 +39,6 @@ function tarjeta_resultado($medicion) {
                         <p class="resultado-meta"><?= icono('reloj', 'icono icono-pequeno') ?> <?= fecha_relativa($medicion['creado_en']) ?></p>
                     </div>
                     <p class="resultado-valor"><?= $lectura['valor'] ?> <span class="resultado-unidad"><?= $lectura['unidad'] ?></span></p>
-                    <?= insignia($categoria) ?>
                     <p class="resultado-frase"><?= frase_resultado($medicion, $lectura, $categoria) ?></p>
                     <?= banda(categorias_de($medicion['tipo'], $medicion['momento'] ?? 'ayunas'), $medicion['categoria'], posicion_de_medicion($medicion)) ?>
                     <p class="resultado-consejo"><?= mostrar($categoria['consejo']) ?></p>
