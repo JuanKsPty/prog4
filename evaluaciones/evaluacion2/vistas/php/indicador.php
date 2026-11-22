@@ -34,13 +34,15 @@ function tarjeta_resultado($medicion) {
                     <?= ilustracion($categoria['imagen'], $iconos[$medicion['tipo']], 'Ilustración: ' . $categoria['nombre']) ?>
                 </div>
                 <div class="resultado-cuerpo">
-                    <h2 class="resultado-etiqueta" id="titulo-resultado"><?= etiqueta_resultado($medicion) ?></h2>
+                    <div class="resultado-cabecera">
+                        <h2 class="resultado-etiqueta" id="titulo-resultado"><?= etiqueta_resultado($medicion) ?></h2>
+                        <p class="resultado-meta"><?= icono('reloj', 'icono icono-pequeno') ?> <?= fecha_relativa($medicion['creado_en']) ?></p>
+                    </div>
                     <p class="resultado-valor"><?= $lectura['valor'] ?> <span class="resultado-unidad"><?= $lectura['unidad'] ?></span></p>
                     <?= insignia($categoria) ?>
                     <p class="resultado-frase"><?= frase_resultado($medicion, $lectura, $categoria) ?></p>
                     <?= banda(categorias_de($medicion['tipo'], $medicion['momento'] ?? 'ayunas'), $medicion['categoria'], posicion_de_medicion($medicion)) ?>
                     <p class="resultado-consejo"><?= mostrar($categoria['consejo']) ?></p>
-                    <p class="resultado-meta"><?= icono('reloj', 'icono icono-pequeno') ?> <?= fecha_relativa($medicion['creado_en']) ?></p>
                 </div>
             </section>
     <?php

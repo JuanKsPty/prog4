@@ -1232,6 +1232,15 @@
     justify-content: center;
 }
 
+/* Título del resultado con la fecha de la medición a la derecha */
+.resultado-cabecera {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
+}
+
 .resultado-etiqueta {
     margin: 0;
     color: var(--tinta-suave);
