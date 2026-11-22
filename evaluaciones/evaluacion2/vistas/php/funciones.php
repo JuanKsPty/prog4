@@ -87,6 +87,20 @@ function calcular_imc($peso, $estatura) {
     return round($peso / ($estatura * $estatura), 2);
 }
 
+// Devuelve los errores del formulario de IMC (vacío si los datos son válidos)
+function validar_imc($peso, $estatura) {
+    $errores = [];
+    if ($peso === null || $peso < 1 || $peso > 500) {
+        $errores['peso'] = 'Escribe tu peso en kilogramos, entre 1 y 500.';
+    }
+    if ($estatura === null || $estatura < 0.5 || $estatura > 2.5) {
+        $errores['estatura'] = $estatura !== null && $estatura >= 50 && $estatura <= 250
+            ? 'Parece que escribiste centímetros. Escríbela en metros, por ejemplo ' . formato_numero($estatura / 100) . '.'
+            : 'Escribe tu estatura en metros, entre 0.50 y 2.50.';
+    }
+    return $errores;
+}
+
 function clasificar_imc($imc) {
     if ($imc < 18.5) {
         return 'bajo';
@@ -175,6 +189,17 @@ function clasificar_glucosa($lectura, $momento) {
     return 'diabetes';
 }
 
+function validar_glucosa($lectura, $momento) {
+    $errores = [];
+    if ($lectura === null || $lectura < 10 || $lectura > 1000) {
+        $errores['lectura'] = 'Escribe la lectura del glucómetro en mg/dl, entre 10 y 1000.';
+    }
+    if (!isset(momentos_glucosa()[$momento])) {
+        $errores['momento'] = 'Indica si tomaste la lectura en ayunas o después de comer.';
+    }
+    return $errores;
+}
+
 /* --------------------------------------------------------------------------
    Presión arterial
    -------------------------------------------------------------------------- */
@@ -234,6 +259,20 @@ function clasificar_presion($sistolica, $diastolica) {
         return 'elevada';
     }
     return 'normal';
+}
+
+function validar_presion($sistolica, $diastolica) {
+    $errores = [];
+    if ($sistolica === null || $sistolica < 50 || $sistolica > 300) {
+        $errores['sistolica'] = 'Escribe la sistólica (el número de arriba), entre 50 y 300.';
+    }
+    if ($diastolica === null || $diastolica < 30 || $diastolica > 200) {
+        $errores['diastolica'] = 'Escribe la diastólica (el número de abajo), entre 30 y 200.';
+    }
+    if (!$errores && $sistolica <= $diastolica) {
+        $errores['sistolica'] = 'La sistólica debe ser mayor que la diastólica. Revisa que no estén invertidas.';
+    }
+    return $errores;
 }
 
 
