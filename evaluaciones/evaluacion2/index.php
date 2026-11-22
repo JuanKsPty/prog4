@@ -23,7 +23,7 @@ documento_inicio('Portal de pacientes', 'cuerpo-landing');
     <main id="contenido" class="portada">
         <div class="portada-texto">
             <h1 class="portada-titulo">Revisa tu IMC, tu glucosa y tu presión en un minuto</h1>
-            <p class="portada-bajada">El portal de pacientes del Consultorio ABC te da el diagnóstico con las mismas tablas que usamos en consulta y guarda cada medición para que veas cómo vas cambiando.</p>
+            <p class="portada-bajada">Diagnóstico al instante con las tablas del consultorio y el historial de todas tus mediciones.</p>
             <div class="portada-acciones">
                 <?php if ($usuario): ?>
                     <a class="boton boton-primario boton-grande" href="vistas/panel.php">Ir a mi panel</a>

@@ -15,14 +15,7 @@ abrir_portal('Inicio', 'inicio', $usuario);
 
         <header class="saludo">
             <h1 class="saludo-titulo">Bienvenido <?= mostrar($usuario['nombre']) ?></h1>
-            <p class="saludo-texto">
-                <?= fecha_de_hoy() ?>.
-                <?php if ($total === 0): ?>
-                    Todavía no tienes mediciones; empieza por cualquiera de los tres indicadores.
-                <?php else: ?>
-                    Tienes <?= $total ?> <?= $total === 1 ? 'medición guardada' : 'mediciones guardadas' ?>.
-                <?php endif; ?>
-            </p>
+            <p class="saludo-texto"><?= fecha_de_hoy() ?><?= $total > 0 ? ' · ' . $total . ($total === 1 ? ' medición' : ' mediciones') : '' ?></p>
         </header>
 
         <section aria-labelledby="titulo-indicadores">
@@ -51,7 +44,7 @@ abrir_portal('Inicio', 'inicio', $usuario);
                             <?= banda(categorias_de($tipo, $medicion['momento'] ?? 'ayunas'), $medicion['categoria'], posicion_de_medicion($medicion), false) ?>
                             <a class="boton boton-secundario" href="<?= url($indicador['pagina']) ?>">Medir de nuevo</a>
                         <?php else: ?>
-                            <p class="indicador-tarjeta-texto">Necesitas: <?= mb_strtolower($indicador['datos']) ?>.</p>
+                            <p class="indicador-tarjeta-texto"><?= mostrar($indicador['datos']) ?></p>
                             <a class="boton boton-primario" href="<?= url($indicador['pagina']) ?>">Medir <?= $tipo === 'imc' ? 'mi IMC' : 'mi ' . mb_strtolower($indicador['nombre']) ?></a>
                         <?php endif; ?>
                     </article>
@@ -64,7 +57,7 @@ abrir_portal('Inicio', 'inicio', $usuario);
             <?php if (!$recientes): ?>
                 <div class="vacio">
                     <?= icono('reloj', 'icono vacio-icono') ?>
-                    <p class="vacio-texto">Aquí verás tus últimas mediciones con su fecha y su resultado, para que puedas comparar cómo vas.</p>
+                    <p class="vacio-texto">Aquí aparecerán tus mediciones.</p>
                 </div>
             <?php else: ?>
                 <ul class="lista-mediciones lista-mediciones-panel">

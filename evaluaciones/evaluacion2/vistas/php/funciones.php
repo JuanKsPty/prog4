@@ -50,35 +50,35 @@ function categorias_imc() {
             'rango' => 'Menos de 18.5',
             'tono' => 'tono-celeste',
             'imagen' => 'imc-bajo',
-            'consejo' => 'Tu peso está por debajo de lo recomendado. Consulta con un nutricionista para planificar una alimentación que te ayude a ganar peso de forma saludable.',
+            'consejo' => 'Consulta con un nutricionista para ganar peso de forma saludable.',
         ],
         'normal' => [
             'nombre' => 'Normal',
             'rango' => '18.5 a 24.9',
             'tono' => 'tono-verde',
             'imagen' => 'imc-normal',
-            'consejo' => '¡Muy bien! Tu peso es adecuado para tu estatura. Mantén una dieta equilibrada y actividad física regular.',
+            'consejo' => 'Mantén una dieta equilibrada y actividad física regular.',
         ],
         'sobrepeso' => [
             'nombre' => 'Sobrepeso',
             'rango' => '25 a 29.9',
             'tono' => 'tono-amarillo',
             'imagen' => 'imc-sobrepeso',
-            'consejo' => 'Tienes algo de peso extra. Aumentar la actividad física y reducir azúcares y harinas refinadas puede ayudarte.',
+            'consejo' => 'Más actividad física y menos azúcares y harinas refinadas te ayudarán.',
         ],
         'obesidad' => [
             'nombre' => 'Obesidad',
             'rango' => '30 a 39.9',
             'tono' => 'tono-naranja',
             'imagen' => 'imc-obesidad',
-            'consejo' => 'Tu IMC indica obesidad, lo que aumenta el riesgo de diabetes e hipertensión. Te recomendamos una cita con tu médico.',
+            'consejo' => 'Aumenta el riesgo de diabetes e hipertensión; agenda una cita con tu médico.',
         ],
         'extrema' => [
             'nombre' => 'Obesidad extrema',
             'rango' => '40 o más',
             'tono' => 'tono-rojo',
             'imagen' => 'imc-extrema',
-            'consejo' => 'Tu IMC está en un nivel de riesgo alto para tu salud. Agenda una consulta médica lo antes posible.',
+            'consejo' => 'Es un nivel de riesgo alto: agenda una consulta médica lo antes posible.',
         ],
     ];
 }
@@ -137,31 +137,32 @@ function categorias_glucosa($momento) {
     return [
         'bajo' => [
             'nombre' => 'Glucosa baja',
+            'corto' => 'Baja',
             'rango' => $rangos['bajo'],
             'tono' => 'tono-celeste',
             'imagen' => 'glucosa-baja',
-            'consejo' => 'Tu glucosa está por debajo de lo normal (hipoglucemia). Come algo con azúcar, como un jugo, y vuelve a medirte en 15 minutos. Si se repite, consulta a tu médico.',
+            'consejo' => 'Toma algo con azúcar y vuelve a medirte en 15 minutos; si se repite, consulta a tu médico.',
         ],
         'normal' => [
             'nombre' => 'Sin diabetes',
             'rango' => $rangos['normal'],
             'tono' => 'tono-teal',
             'imagen' => 'glucosa-normal',
-            'consejo' => 'Tu nivel de glucosa es normal. Sigue con tus hábitos saludables y haz controles periódicos.',
+            'consejo' => 'Sigue con tus hábitos saludables y haz controles periódicos.',
         ],
         'pre' => [
             'nombre' => 'Prediabetes',
             'rango' => $rangos['pre'],
             'tono' => 'tono-ambar',
             'imagen' => 'glucosa-prediabetes',
-            'consejo' => 'Tu glucosa está elevada. Con cambios en la alimentación y más actividad física se puede evitar la diabetes. Coméntalo con tu médico.',
+            'consejo' => 'Comer mejor y moverte más puede evitar la diabetes; coméntalo con tu médico.',
         ],
         'diabetes' => [
             'nombre' => 'Diabetes',
             'rango' => $rangos['diabetes'],
             'tono' => 'tono-vino',
             'imagen' => 'glucosa-diabetes',
-            'consejo' => 'Tu lectura está en el rango de diabetes. Agenda una cita para confirmar el diagnóstico con exámenes de laboratorio.',
+            'consejo' => 'Agenda una cita para confirmarlo con exámenes de laboratorio.',
         ],
     ];
 }
@@ -212,35 +213,38 @@ function categorias_presion() {
             'rango' => 'Menos de 120 / 80',
             'tono' => 'tono-lima',
             'imagen' => 'presion-normal',
-            'consejo' => 'Tu presión arterial es normal. Sigue con una dieta baja en sal y actividad física regular.',
+            'consejo' => 'Sigue con una dieta baja en sal y actividad física regular.',
         ],
         'elevada' => [
             'nombre' => 'Elevada',
             'rango' => '120-129 / menos de 80',
             'tono' => 'tono-limon',
             'imagen' => 'presion-elevada',
-            'consejo' => 'Tu presión está un poco elevada. Reduce la sal, el alcohol y el estrés, y vuelve a medirla en unos días.',
+            'consejo' => 'Reduce la sal, el alcohol y el estrés, y vuelve a medirla en unos días.',
         ],
         'nivel1' => [
             'nombre' => 'Hipertensión nivel 1',
+            'corto' => 'Nivel 1',
             'rango' => '130-139 / 80-89',
             'tono' => 'tono-ocre',
             'imagen' => 'presion-nivel1',
-            'consejo' => 'Tienes presión arterial alta (nivel 1). Consulta con tu médico; puede recomendarte cambios de hábitos o tratamiento.',
+            'consejo' => 'Consulta con tu médico; puede indicarte cambios de hábitos o tratamiento.',
         ],
         'nivel2' => [
             'nombre' => 'Hipertensión nivel 2',
+            'corto' => 'Nivel 2',
             'rango' => '140 o más / 90 o más',
             'tono' => 'tono-ladrillo',
             'imagen' => 'presion-nivel2',
-            'consejo' => 'Tienes presión arterial alta (nivel 2). Es importante que te vea un médico pronto para iniciar tratamiento.',
+            'consejo' => 'Necesitas que te vea un médico pronto para iniciar tratamiento.',
         ],
         'crisis' => [
             'nombre' => 'Crisis hipertensiva',
+            'corto' => 'Crisis',
             'rango' => 'Más de 180 / más de 120',
             'tono' => 'tono-granate',
             'imagen' => 'presion-crisis',
-            'consejo' => 'Consulta a tu médico de inmediato. Si tienes dolor de pecho, falta de aire o visión borrosa, acude a urgencias.',
+            'consejo' => 'Consulta a tu médico de inmediato y, si tienes dolor de pecho o falta de aire, ve a urgencias.',
         ],
     ];
 }
@@ -295,14 +299,14 @@ function indicadores() {
             'titulo' => 'Glucosa en sangre',
             'pagina' => 'vistas/glucosa.php',
             'imagen' => 'menu-glucosa',
-            'datos' => 'Lectura del glucómetro, en ayunas o después de comer',
+            'datos' => 'Lectura del glucómetro',
         ],
         'presion' => [
             'nombre' => 'Presión',
             'titulo' => 'Presión arterial',
             'pagina' => 'vistas/presion.php',
             'imagen' => 'menu-presion',
-            'datos' => 'Presión sistólica y diastólica',
+            'datos' => 'Sistólica y diastólica',
         ],
     ];
 }
@@ -446,7 +450,7 @@ function lectura_de_medicion($medicion) {
     return [
         'valor' => (int) $medicion['sistolica'] . '/' . (int) $medicion['diastolica'],
         'unidad' => 'mm Hg',
-        'detalle' => 'Sistólica / diastólica',
+        'detalle' => '',
         'numero' => null,
     ];
 }
@@ -479,6 +483,17 @@ function fecha_relativa($fecha) {
     $meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
     $texto = $momento->format('j') . ' ' . $meses[$momento->format('n') - 1];
     return $momento->format('Y') === date('Y') ? $texto : $texto . ' ' . $momento->format('Y');
+}
+
+// Qué se borra al eliminar la cuenta, sin frases como "tus 0 mediciones"
+function texto_eliminar_cuenta($total) {
+    if ($total === 0) {
+        return 'Se borra tu cuenta.';
+    }
+    if ($total === 1) {
+        return 'Se borran tu cuenta y tu única medición.';
+    }
+    return "Se borran tu cuenta y tus $total mediciones.";
 }
 
 function fecha_de_hoy() {
@@ -529,8 +544,7 @@ function banda($categorias, $actual, $posicion, $con_leyenda = true) {
         foreach ($categorias as $clave => $categoria) {
             $es_actual = $clave === $actual;
             $html .= '<li class="banda-categoria ' . $categoria['tono'] . ($es_actual ? ' es-actual' : '') . '"' . ($es_actual ? ' aria-current="true"' : '') . '>';
-            $html .= '<span class="banda-nombre">' . mostrar($categoria['nombre']) . '</span>';
-            $html .= '<span class="banda-rango">' . mostrar($categoria['rango']) . '</span>';
+            $html .= '<span class="banda-nombre">' . mostrar($categoria['corto'] ?? $categoria['nombre']) . '</span>';
             $html .= '</li>';
         }
         $html .= '</ol>';
