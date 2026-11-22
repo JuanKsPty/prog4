@@ -255,6 +255,15 @@
     margin-bottom: 0.4rem;
 }
 
+/* Etiqueta con su ayuda a la derecha, en la misma línea */
+.campo-cabecera {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0 1rem;
+}
+
 .campo-ayuda {
     margin: 0;
     color: var(--tinta-tenue);
