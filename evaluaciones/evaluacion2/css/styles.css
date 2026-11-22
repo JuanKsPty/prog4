@@ -1082,7 +1082,7 @@
     margin: 0.35rem 0 0.25rem;
 }
 
-/* Nombre de la categoría en una línea chica arriba del número, en el color de la categoría.
+/* Nombre de la categoría en una línea chica debajo del número, en el color de la categoría.
    Ocupa todo el ancho de la tarjeta, así que entra hasta "Hipertensión nivel 2" en celulares. */
 .indicador-tarjeta-lectura {
     display: grid;
