@@ -1077,10 +1077,19 @@
     margin: 0.35rem 0 0.25rem;
 }
 
-.indicador-tarjeta-texto {
-    flex: 1;
-    margin: 0;
-    color: var(--tinta-suave);
+/* Tarjeta sin mediciones: la misma estructura que las demás, en tonos apagados */
+.indicador-tarjeta.sin-datos .indicador-tarjeta-valor {
+    color: var(--linea-fuerte);
+}
+
+.indicador-tarjeta.sin-datos .banda-tramo {
+    opacity: 0.3;
+}
+
+.insignia-vacia {
+    --tono: var(--linea-fuerte);
+    --tono-suave: var(--fondo);
+    --tono-texto: var(--tinta-suave);
 }
 
 .indicador-tarjeta .boton {

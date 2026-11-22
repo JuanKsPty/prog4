@@ -293,6 +293,7 @@ function indicadores() {
             'pagina' => 'vistas/imc.php',
             'imagen' => 'menu-imc',
             'datos' => 'Peso y estatura',
+            'unidad' => 'kg/m²',
         ],
         'glucosa' => [
             'nombre' => 'Glucosa',
@@ -300,6 +301,7 @@ function indicadores() {
             'pagina' => 'vistas/glucosa.php',
             'imagen' => 'menu-glucosa',
             'datos' => 'Lectura del glucómetro',
+            'unidad' => 'mg/dl',
         ],
         'presion' => [
             'nombre' => 'Presión',
@@ -307,6 +309,7 @@ function indicadores() {
             'pagina' => 'vistas/presion.php',
             'imagen' => 'menu-presion',
             'datos' => 'Sistólica y diastólica',
+            'unidad' => 'mm Hg',
         ],
     ];
 }
