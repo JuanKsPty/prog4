@@ -51,7 +51,7 @@ Por defecto se usa la configuración de XAMPP: servidor `localhost`, puerto `330
 | `css/styles.css`, `js/`, `img/` | Estilos, scripts de interfaz e ilustraciones |
 | `sql/consultorio_abc.sql` | Esquema de la base de datos |
 
-Todos los cálculos se hacen en PHP. Los archivos de `js/` solo sirven para la interfaz (mostrar la contraseña y cerrar el menú de usuario).
+Todos los cálculos se hacen en PHP. Los archivos de `js/` solo sirven para la interfaz: mostrar la contraseña, cerrar el menú de usuario y poner el punto decimal de la estatura mientras se escribe.
 
 ## Decisiones sobre las tablas de referencia
 

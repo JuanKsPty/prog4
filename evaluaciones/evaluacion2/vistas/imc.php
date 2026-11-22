@@ -19,7 +19,7 @@ $campos = function ($errores, $valores) {
                     <div class="campo">
                         <label class="campo-etiqueta" for="estatura">Estatura</label>
                         <div class="campo-unidad-grupo">
-                            <input class="campo-entrada" type="number" id="estatura" name="estatura" min="0.5" step="0.01" inputmode="decimal" placeholder="Ej. 1.70" value="<?= valor($valores, 'estatura') ?>" required<?= atributos_error($errores, 'estatura') ?>>
+                            <input class="campo-entrada" type="text" id="estatura" name="estatura" inputmode="numeric" maxlength="4" autocomplete="off" data-formato="estatura" placeholder="Ej. 1.70" value="<?= valor($valores, 'estatura') ?>" required<?= atributos_error($errores, 'estatura') ?>>
                             <span class="campo-unidad">m</span>
                         </div>
                         <?= error_campo($errores, 'estatura') ?>

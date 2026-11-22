@@ -66,7 +66,7 @@ function resultado_vacio($tipo) {
 }
 
 function historial_indicador($tipo, $usuario_id, $actual_id) {
-    $mediciones = mediciones_recientes($usuario_id, 6, $tipo);
+    $mediciones = mediciones_recientes($usuario_id, 20, $tipo);
     $indicador = indicadores()[$tipo];
     ob_start();
     ?>

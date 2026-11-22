@@ -1228,12 +1228,12 @@
     opacity: 0.9;
 }
 
-/* Centrado en vertical: la tarjeta toma la altura del formulario y el contenido no queda pegado arriba */
+/* El espacio que sobra cuando la tarjeta toma la altura del formulario se reparte entre los elementos */
 .resultado-cuerpo {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 0.75rem;
+    justify-content: space-evenly;
+    gap: 0.85rem;
     padding: clamp(1.25rem, 3vw, 1.75rem);
 }
 
@@ -1299,6 +1299,24 @@
     margin: 0;
     color: var(--tinta-tenue);
     font-size: var(--texto-s);
+}
+
+/* El historial mide lo mismo que la tabla de referencia y hace scroll por dentro.
+   contain: size hace que no aporte altura a la fila; luego se estira a la de la tabla. */
+.historial {
+    display: flex;
+    flex-direction: column;
+    contain: size;
+}
+
+.historial .lista-mediciones {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    align-content: start;
+    padding-right: 0.35rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--linea-fuerte) transparent;
 }
 
 .historial .medicion {
@@ -1412,6 +1430,10 @@
     .resultado {
         grid-template-columns: minmax(0, 0.55fr) minmax(0, 1.45fr);
     }
+
+    .resultado-cuerpo {
+        gap: 0.75rem;
+    }
 }
 
 @media (max-width: 1000px) {
@@ -1420,9 +1442,11 @@
         grid-template-columns: minmax(0, 1fr);
     }
 
-    /* En una columna, el historial va antes que la tabla de referencia */
+    /* En una columna, el historial va antes que la tabla de referencia, con su propia altura máxima */
     .historial {
         order: -1;
+        contain: none;
+        max-height: 26rem;
     }
 
     .indicadores {

@@ -100,7 +100,7 @@ function abrir_portal($titulo, $activo, $usuario) {
 function cerrar_portal() {
     echo "    </main>\n";
     pie();
-    documento_fin(['menu.js']);
+    documento_fin(['menu.js', 'formatos.js']);
 }
 
 /* --------------------------------------------------------------------------
