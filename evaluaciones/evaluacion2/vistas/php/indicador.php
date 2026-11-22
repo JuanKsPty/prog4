@@ -40,7 +40,7 @@ function tarjeta_resultado($medicion) {
                     <p class="resultado-frase"><?= frase_resultado($medicion, $lectura, $categoria) ?></p>
                     <?= banda(categorias_de($medicion['tipo'], $medicion['momento'] ?? 'ayunas'), $medicion['categoria'], posicion_de_medicion($medicion)) ?>
                     <p class="resultado-consejo"><?= mostrar($categoria['consejo']) ?></p>
-                    <p class="resultado-meta"><?= icono('reloj', 'icono icono-pequeno') ?> Medido <?= mb_strtolower(fecha_relativa($medicion['creado_en'])) ?>, <?= mb_strtolower($lectura['detalle']) ?>.</p>
+                    <p class="resultado-meta"><?= icono('reloj', 'icono icono-pequeno') ?> <?= fecha_relativa($medicion['creado_en']) ?></p>
                 </div>
             </section>
     <?php
@@ -57,7 +57,6 @@ function resultado_vacio($tipo) {
                 </div>
                 <div class="resultado-cuerpo">
                     <h2 class="resultado-etiqueta" id="titulo-resultado">Tu resultado aparecerá aquí</h2>
-                    <p class="resultado-texto">Completa el formulario y verás tu diagnóstico, en qué parte de la escala estás y un consejo. Cada medición se guarda en tu historial.</p>
                 </div>
             </section>
     <?php
@@ -72,7 +71,7 @@ function historial_indicador($tipo, $usuario_id, $actual_id) {
             <section class="tarjeta historial" aria-labelledby="titulo-historial">
                 <h2 class="seccion-titulo" id="titulo-historial">Tus mediciones de <?= $tipo === 'imc' ? 'IMC' : mb_strtolower($indicador['titulo']) ?></h2>
                 <?php if (!$mediciones): ?>
-                    <p class="vacio-texto">Todavía no tienes mediciones de este indicador. La primera que calcules aparecerá aquí.</p>
+                    <p class="vacio-texto">Sin mediciones todavía.</p>
                 <?php else: ?>
                     <ul class="lista-mediciones">
                         <?php foreach ($mediciones as $medicion):
@@ -82,7 +81,7 @@ function historial_indicador($tipo, $usuario_id, $actual_id) {
                             <li class="medicion<?= (int) $medicion['id'] === $actual_id ? ' es-actual' : '' ?>">
                                 <span class="medicion-fecha"><?= fecha_relativa($medicion['creado_en']) ?></span>
                                 <span class="medicion-lectura"><?= $lectura['valor'] ?> <span class="medicion-unidad"><?= $lectura['unidad'] ?></span></span>
-                                <span class="medicion-detalle"><?= mostrar($lectura['detalle']) ?></span>
+                                <?php if ($lectura['detalle'] !== ''): ?><span class="medicion-detalle"><?= mostrar($lectura['detalle']) ?></span><?php endif; ?>
                                 <?= insignia($categoria) ?>
                             </li>
                         <?php endforeach; ?>
@@ -96,11 +95,8 @@ function historial_indicador($tipo, $usuario_id, $actual_id) {
 function tabla_referencia($tipo) {
     ob_start();
     ?>
-            <details class="tarjeta referencia">
-                <summary class="referencia-resumen">
-                    <span class="seccion-titulo">Tabla de referencia</span>
-                    <?= icono('abajo', 'icono referencia-flecha') ?>
-                </summary>
+            <section class="tarjeta referencia" aria-labelledby="titulo-referencia">
+                <h2 class="seccion-titulo" id="titulo-referencia">Tabla de referencia</h2>
                 <?php if ($tipo === 'glucosa'):
                     $ayunas = categorias_glucosa('ayunas');
                     $despues = categorias_glucosa('posprandial');
@@ -133,15 +129,15 @@ function tabla_referencia($tipo) {
                 <?php if ($tipo === 'imc'): ?>
                     <p class="referencia-nota">Fórmula: IMC = peso (kg) ÷ estatura² (m).</p>
                 <?php elseif ($tipo === 'presion'): ?>
-                    <p class="referencia-nota">Basta con que uno de los dos números entre en una categoría más alta para clasificarte en ella.</p>
+                    <p class="referencia-nota">Cuenta la categoría más alta de los dos números.</p>
                 <?php endif; ?>
-            </details>
+            </section>
     <?php
     return ob_get_clean();
 }
 
 // Arma la página completa; $campos es el HTML de los campos propios de cada formulario
-function pagina_indicador($tipo, $usuario, $bajada, $campos, $boton) {
+function pagina_indicador($tipo, $usuario, $campos, $boton) {
     $indicador = indicadores()[$tipo];
     $flash = tomar_flash();
     $medicion = null;
@@ -153,7 +149,6 @@ function pagina_indicador($tipo, $usuario, $bajada, $campos, $boton) {
     ?>
         <header class="encabezado">
             <h1 class="titulo"><?= mostrar($indicador['titulo']) ?></h1>
-            <p class="bajada"><?= $bajada ?></p>
         </header>
 
         <?= aviso($flash['aviso'] ?? '') ?>
@@ -172,8 +167,8 @@ function pagina_indicador($tipo, $usuario, $bajada, $campos, $boton) {
         </div>
 
         <div class="indicador-secundario">
-            <?= historial_indicador($tipo, $usuario['id'], $medicion ? (int) $medicion['id'] : 0) ?>
             <?= tabla_referencia($tipo) ?>
+            <?= historial_indicador($tipo, $usuario['id'], $medicion ? (int) $medicion['id'] : 0) ?>
         </div>
     <?php
     cerrar_portal();
