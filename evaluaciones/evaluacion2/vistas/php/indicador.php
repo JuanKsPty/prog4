@@ -110,7 +110,7 @@ function tabla_referencia($tipo) {
                         <tbody>
                             <?php foreach ($ayunas as $clave => $categoria): ?>
                                 <tr>
-                                    <th scope="row"><span class="punto <?= $categoria['tono'] ?>"></span><?= $categoria['nombre'] ?></th>
+                                    <th scope="row"><span class="punto <?= $categoria['tono'] ?>"></span><?= mostrar($categoria['nombre']) ?></th>
                                     <td><?= $categoria['rango'] ?> mg/dl</td>
                                     <td><?= $despues[$clave]['rango'] ?> mg/dl</td>
                                 </tr>
@@ -123,7 +123,7 @@ function tabla_referencia($tipo) {
                         <tbody>
                             <?php foreach (categorias_de($tipo) as $categoria): ?>
                                 <tr>
-                                    <th scope="row"><span class="punto <?= $categoria['tono'] ?>"></span><?= $categoria['nombre'] ?></th>
+                                    <th scope="row"><span class="punto <?= $categoria['tono'] ?>"></span><?= mostrar($categoria['nombre']) ?></th>
                                     <td><?= $categoria['rango'] ?></td>
                                 </tr>
                             <?php endforeach; ?>
@@ -152,7 +152,7 @@ function pagina_indicador($tipo, $usuario, $bajada, $campos, $boton) {
     abrir_portal($indicador['titulo'], $tipo, $usuario);
     ?>
         <header class="encabezado">
-            <h1 class="titulo"><?= $indicador['titulo'] ?></h1>
+            <h1 class="titulo"><?= mostrar($indicador['titulo']) ?></h1>
             <p class="bajada"><?= $bajada ?></p>
         </header>
 

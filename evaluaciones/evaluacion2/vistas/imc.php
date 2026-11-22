@@ -19,7 +19,7 @@ $campos = function ($errores, $valores) {
                     <div class="campo">
                         <label class="campo-etiqueta" for="estatura">Estatura</label>
                         <div class="campo-unidad-grupo">
-                            <input class="campo-entrada" type="number" id="estatura" name="estatura" min="0.5" max="2.5" step="0.01" inputmode="decimal" placeholder="1.70" value="<?= valor($valores, 'estatura') ?>" required<?= atributos_error($errores, 'estatura', 'ayuda-estatura') ?>>
+                            <input class="campo-entrada" type="number" id="estatura" name="estatura" min="0.5" step="0.01" inputmode="decimal" placeholder="1.70" value="<?= valor($valores, 'estatura') ?>" required<?= atributos_error($errores, 'estatura', 'ayuda-estatura') ?>>
                             <span class="campo-unidad">m</span>
                         </div>
                         <p class="campo-ayuda" id="ayuda-estatura">En metros, por ejemplo 1.70.</p>

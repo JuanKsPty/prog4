@@ -235,7 +235,7 @@ function categorias_presion() {
             'consejo' => 'Tienes presión arterial alta (nivel 2). Es importante que te vea un médico pronto para iniciar tratamiento.',
         ],
         'crisis' => [
-            'nombre' => 'Crisis de hipertensión',
+            'nombre' => 'Crisis hipertensiva',
             'rango' => 'Más de 180 / más de 120',
             'tono' => 'tono-granate',
             'imagen' => 'presion-crisis',
@@ -519,7 +519,7 @@ function banda($categorias, $actual, $posicion, $con_leyenda = true) {
         $html .= '<span class="banda-tramo ' . $categoria['tono'] . ($clave === $actual ? ' es-actual' : '') . '"></span>';
     }
     if ($actual !== null) {
-        $html .= '<span class="banda-marcador" style="left: ' . $posicion . '%"></span>';
+        $html .= '<span class="banda-marcador" style="--posicion: ' . $posicion . '%"></span>';
     }
     $html .= '</div>';
 

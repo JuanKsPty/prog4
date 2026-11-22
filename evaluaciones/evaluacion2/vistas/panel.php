@@ -35,7 +35,7 @@ abrir_portal('Inicio', 'inicio', $usuario);
                         <div class="indicador-tarjeta-cabecera">
                             <?= ilustracion($indicador['imagen'], $tipo, '', 'indicador-tarjeta-imagen') ?>
                             <div>
-                                <h3 class="indicador-tarjeta-titulo"><?= $indicador['titulo'] ?></h3>
+                                <h3 class="indicador-tarjeta-titulo"><?= mostrar($indicador['titulo']) ?></h3>
                                 <p class="indicador-tarjeta-fecha">
                                     <?= $medicion ? 'Última medición: ' . mb_strtolower(fecha_relativa($medicion['creado_en'])) : 'Sin mediciones todavía' ?>
                                 </p>

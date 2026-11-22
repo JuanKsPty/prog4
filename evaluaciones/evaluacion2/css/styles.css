@@ -475,6 +475,8 @@
 .banda-marcador {
     position: absolute;
     top: 50%;
+    /* --posicion la calcula posicion_en_banda() en PHP para cada medición */
+    left: var(--posicion, 50%);
     width: 1.375rem;
     height: 1.375rem;
     transform: translate(-50%, -50%);
