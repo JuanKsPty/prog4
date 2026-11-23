@@ -79,6 +79,7 @@ $iniciales = mb_strtoupper(mb_substr($nombre, 0, 1) . mb_substr($apellido, 0, 1)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= t('entrenador.recibidos_titulo') ?></title>
     <link rel="stylesheet" href="../../css/styles.css">
+    <?php colores_sesion(); ?>
 </head>
 <body class="trainer-page">
     <a class="skip-link" href="#contenido"><?= t('comun.saltar') ?></a>

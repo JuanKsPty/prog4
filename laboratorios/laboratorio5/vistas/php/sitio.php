@@ -55,6 +55,27 @@ function textos_js() {
     echo '<script>const TEXTOS = ' . json_encode($datos, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) . "</script>\n";
 }
 
+// --- Sesión: colores del sitio ---------------------------------------------------
+// Si el usuario inició sesión y eligió colores, se cambian las variables de color del sitio
+function colores_sesion() {
+    if (empty($_SESSION['usuario'])) {
+        return;
+    }
+    $fondo = traducirColor($_SESSION['colorfondo'] ?? '', 'fondo');
+    $texto = traducirColor($_SESSION['colortexto'] ?? '', 'texto');
+    if ($fondo === null && $texto === null) {
+        return;
+    }
+    echo "<style>\n        :root {";
+    if ($fondo !== null) {
+        echo " --fondo: $fondo;";
+    }
+    if ($texto !== null) {
+        echo " --tinta: $texto;";
+    }
+    echo " }\n    </style>\n";
+}
+
 // --- Menú y pie ---------------------------------------------------------------
 function menu($actual) {
     global $raiz, $idioma, $pagina_actual;
@@ -77,6 +98,12 @@ function menu($actual) {
             <?php endforeach; ?>
         </div>
         <div class="nav-tools">
+            <?php if (!empty($_SESSION['usuario'])): ?>
+                <a class="nav-tool nav-session" href="<?= $raiz ?>vistas/colores.php"<?= $actual === 'vistas/colores.php' ? ' aria-current="page"' : '' ?>><?= t('nav.colores') ?></a>
+                <a class="nav-tool nav-session" href="<?= $raiz ?>vistas/php/logout.php"><?= t('nav.salir', htmlspecialchars($_SESSION['usuario'], ENT_QUOTES, 'UTF-8')) ?></a>
+            <?php else: ?>
+                <a class="nav-tool nav-session" href="<?= $raiz ?>vistas/login.php"<?= $actual === 'vistas/login.php' ? ' aria-current="page"' : '' ?>><?= t('nav.login') ?></a>
+            <?php endif; ?>
             <div class="lang-switch" role="group" aria-label="<?= t('nav.idioma') ?>">
                 <?php foreach (IDIOMAS as $codigo => $nombre): ?>
                     <a href="<?= $raiz ?>vistas/php/grabarCookie.php?idiomaUsuario=<?= $codigo ?>&amp;volver=<?= $volver ?>" lang="<?= $codigo ?>" title="<?= $nombre ?>"<?= $codigo === $idioma ? ' aria-current="true"' : '' ?>><?= strtoupper($codigo) ?></a>

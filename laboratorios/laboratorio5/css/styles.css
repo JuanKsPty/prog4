@@ -2102,6 +2102,91 @@ input[type="file"]::file-selector-button {
 }
 
 /* ==========================================================================
+   Sesión: iniciar sesión y colores del sitio
+   ========================================================================== */
+
+.nav-session {
+    color: var(--tinta);
+}
+
+.nav-session:hover {
+    color: var(--tinta);
+    background: var(--fondo);
+}
+
+.nav-session[aria-current="page"] {
+    color: #ffffff;
+    background: var(--tinta);
+    border-color: var(--tinta);
+}
+
+.session-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+    align-items: start;
+    gap: 1.5rem;
+}
+
+.session-panel {
+    display: grid;
+    gap: 1.25rem;
+}
+
+.session-form {
+    display: grid;
+    gap: 1rem;
+}
+
+.session-message {
+    padding: 0.85rem 1rem;
+    border-radius: var(--radio-m);
+    font-weight: 600;
+}
+
+.session-message.is-error {
+    color: var(--rojo-texto);
+    background: var(--rojo-suave);
+}
+
+.session-message.is-success {
+    color: var(--verde-texto);
+    background: #eef8ea;
+}
+
+.session-layout .adventure-note {
+    display: grid;
+    gap: 0.6rem;
+}
+
+.session-layout .adventure-note h2 {
+    margin: 0;
+}
+
+.color-preview {
+    display: grid;
+    gap: 0.75rem;
+}
+
+/* La muestra parte de los colores originales del sitio y cambia con lo que se elige */
+.color-sample {
+    display: grid;
+    gap: 0.5rem;
+    min-height: 180px;
+    align-content: center;
+    padding: 1.5rem;
+    color: var(--muestra-texto, #12162a);
+    background: var(--muestra-fondo, #f4f5f8);
+    border: 1px solid var(--linea);
+    border-radius: var(--radio-l);
+    transition: background-color 150ms ease, color 150ms ease;
+}
+
+.color-sample h2 {
+    color: inherit;
+    font-size: 1.35rem;
+}
+
+/* ==========================================================================
    Responsive
    ========================================================================== */
 
@@ -2118,6 +2203,7 @@ input[type="file"]::file-selector-button {
 
     .mission,
     .cookies-panel,
+    .session-layout,
     .pokedex-layout,
     .types-layout,
     .types-intro,

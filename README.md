@@ -14,7 +14,7 @@ La página principal lista todos los laboratorios, del más reciente al más ant
 | 2 | Formulario personal | Formularios y tipos de entrada de HTML5 | [laboratorio2](https://prog4.juank.tech/laboratorios/laboratorio2/) |
 | 3 | Pokémon Lab | Hojas de estilo y JavaScript con PokeAPI | [laboratorio3](https://prog4.juank.tech/laboratorios/laboratorio3/) |
 | 4 | Pokémon Lab con PHP | Procesar formularios con POST en PHP | [laboratorio4](https://prog4.juank.tech/laboratorios/laboratorio4/) |
-| 5 | Pokémon Lab con cookies | Idioma (español, inglés y francés), visitas del mes y borrar cookies con PHP | [laboratorio5](https://prog4.juank.tech/laboratorios/laboratorio5/) |
+| 5 | Pokémon Lab con cookies y sesiones | Idioma (español, inglés y francés), visitas del mes y borrar cookies; inicio de sesión y colores del sitio con sesiones en PHP | [laboratorio5](https://prog4.juank.tech/laboratorios/laboratorio5/) |
 
 ## Evaluaciones
 
